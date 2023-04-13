@@ -1,11 +1,9 @@
-import { COOKIE_MANAGER } from "./cookies.js";
-
-console.log(parseInt(105));
+import { SAVE_MANAGER } from "./save_system.js";
 
 class EasterEggsManager {
 	constructor() {
 		this.easterEggs = new Map();
-		this.cookie = COOKIE_MANAGER.get("easter-eggs");
+		this.save = SAVE_MANAGER.get("easter-eggs");
 	}
 
 	addEasterEgg(easterEgg) {
@@ -15,7 +13,7 @@ class EasterEggsManager {
 	parse_csv_lines(lines) {
 		const header = lines.shift().split(","); // comme pop_front()
 
-		let argument_mapper = new Map(); // bidouillage pour remplacer **kwargs
+		let argumentMapper = new Map(); // bidouillage pour remplacer **kwargs
 
 		line_loop: for (const [lineIdx, line] of lines.entries()) {
 			let values = line.split(",");
@@ -25,14 +23,14 @@ class EasterEggsManager {
 					console.warn(`Incomplete easter egg info at line ${lineIdx + 2} of the csv configuration file.`) // +2 because header was removed
 					continue line_loop;
 				}
-				argument_mapper.set(header[columnIdx], value);
+				argumentMapper.set(header[columnIdx], value);
 			}
-			new EasterEgg(argument_mapper);
+			new EasterEgg(argumentMapper);
 		}
 	}
 
 	searchUnlocked() {
-		const pairs = this.cookie.value.split("|")
+		const pairs = this.save.value.split("|")
 		for (const pair of pairs) {
 			const [id, unlockedDate] = pair.split("@")
 			const easterEgg = this.easterEggs.get(id)
@@ -68,10 +66,10 @@ class EasterEggsManager {
 
 		let result = easterEgg.unlock();
 		if (result) {
-			if (this.cookie.value) {
-				this.cookie.value += "|" + result
+			if (this.save.value) {
+				this.save.value += "|" + result
 			} else {
-				this.cookie.value += result
+				this.save.value += result
 			}
 		}
 	}
@@ -127,7 +125,7 @@ class EasterEgg {
 
 // export function unlock(easterEggId) {
 // 	console.log("Unlocked " + easterEggId);
-// 	new Cookie(easterEggId, "1");
+// 	new Save(easterEggId, "1");
 // }
 
 await EASTER_EGGS_MANAGER.loadEasterEggs();
