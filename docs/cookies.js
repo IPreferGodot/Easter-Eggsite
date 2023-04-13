@@ -1,39 +1,12 @@
-/**
- *
- * @property {Map} cookies List of all cookies
- */
-class CookieManager {
-	constructor() {
-		this.cookies = new Map();
-	}
-
-	add(cookie) {
-		this.cookies.set(cookie.key, cookie);
-	}
-	
-	get(key) {
-		let cookie = this.cookies.get(key)
-		if (!cookie) {
-			cookie = new Cookie(key, "")
-		}
-		return cookie
-	}
-	
-	load_cookies() {
-		console.log("Cookies are :" + document.cookie);
-		for (let pair of document.cookie.split(";")) {
-			new Cookie(...pair.split("="));
-			console.log("Loaded " + pair);
-		}
-	}
-}
-const COOKIE_MANAGER = new CookieManager();
-
-class Cookie {
+class Save {
+	/**
+	 * 
+	 * @param {string} key The key of the save
+	 * @param {string} value The initial value of the save (saved value takes priority)
+	 */
 	constructor(key, value = "") {
 		this.key = key;
-		this.value = value;
-		COOKIE_MANAGER.add(this);
+		this.value = localStorage.getItem(key) || value;
 		this.save();
 	}
 
@@ -46,10 +19,60 @@ class Cookie {
 	}
 
 	save() {
-		document.cookie = this.key + "=" + this.value + "; max-age=3153600000; path=/";
+		localStorage.setItem(this.key, this.value)
+		// document.save = this.key + "=" + this.value + "; max-age=3153600000; path=/";
 	}
 }
 
-COOKIE_MANAGER.load_cookies();
 
-export { Cookie, COOKIE_MANAGER };
+/**
+ *
+ * @property {Map} saves List of all saves
+ */
+class SaveManager {
+	constructor() {
+		this.saves = new Map();
+		this.keys = [];
+		this.keysSave = this.get("keys");
+		this.loadSaves();
+	}
+
+	_addKey(key) {
+		if (key != "keys" && !(key in this.keys)) {
+			this.keys.push(key)
+			this.keysSave.value = this.keys.join(";")
+		}
+	}
+	
+	add(save) {
+		this.saves.set(save.key, save);
+		this._addKey(save.key)
+	}
+	
+	get(key) {
+		let save = this.saves.get(key);
+		if (!save) {
+			save = new Save(key, "");
+			this.add(save);
+		}
+		return save;
+	}
+	
+	set(key, value) {
+		this.get(key).value = value
+	}
+	
+	loadSaves() {
+		console.log("Loading saves :");
+		const keys = this.keysSave.value;
+		if (keys == "") {
+			return;
+		}
+		for (const key of keys.split(";")) {
+			console.log(`\t${key} → ${this.get(key).value || "`empty`"}`) // `get()` will load the Save
+		}
+	}
+}
+const SAVE_MANAGER = new SaveManager();
+
+export { SAVE_MANAGER };
