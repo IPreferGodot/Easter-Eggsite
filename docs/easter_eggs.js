@@ -1,4 +1,4 @@
-import { SAVE_MANAGER } from "./cookies.js";
+import { SAVE_MANAGER } from "./save_system.js";
 
 class EasterEggsManager {
 	constructor() {
