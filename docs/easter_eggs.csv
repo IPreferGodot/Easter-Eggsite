@@ -1,34 +1,36 @@
-id,name,description
-spaming,Pro du CPS,Spammer
-semi_marathon,Semi marathon,ça cours
-,Titre honorifique,
-miam,Miam miam,
-hungry,Affamé,
-smart,Intelligent,
-,Girouette,
-,Bien essayé,
-,À l'aveuglette,
-,À découvert,
-,Naïf,
-,Hacker novice,
-,Hacker amateur,
-,Hacker pro,
-re,Re !,
-,Routine,
-gatcha,Gatcha,
-fleche,Flèche !,
-bourrin,Bourrin,
-cgu_button,Au pied de la lettre,
-http_400,HTTP 400,
-footer,Fan de foot,
-mute,Censure par baillonement,
-forgot_password,Tête en l'air,
-no_internet,Je passe sous un tunnel,
-cat_killer_1,😯,
-cat_killer_10,😲,
-cat_killer_50,😨,
-cat_killer_100,😱,
-,Ça fait du bien aux oreilles,
-asleep,Euh... Vous dormez ?,
-explorer,Explorateur,
-lost,Perdu,
+id,name,description,hidden,difficulty
+spaming,Pro du CPS,Spammer le bouton de connection,0,2
+semi_marathon,Semi marathon,"Scroller [TBD, 21 000 ?] px",0,2
+page_title,Titre honorifique,Mot de passe caché loin dans le titre de la page,0,5
+miam,Miam miam,Accepter les cookies,0,0
+hungry,Affamé,Refuser les cookies,0,0
+smart,Intelligent,Changer d'avis sur les cookies,0,1
+girouette,Girouette,Changer [TBD] fois d'avis pour les cookies,0,3
+too_easy,Bien essayé,Tenter un mot de passe facile,0,2
+hidden_chars,À l'aveuglette,Tenter un mot de passe sans avoir activer la visibilité des caractères,0,0
+visible_chars,À découvert,Tenter un mot de passe avec la visibilité des caractères,0,0
+placeholder_pwd,Naïf,"Écrire ""un mot de passe"" puisque le placeholder inque d'""entrer un mot de passe"".",0,4
+,Hacker novice,Trouver un mot de passe affiché dans la console,1,1
+,Hacker amateur,Trouver un mot de passe dans le code HTML de la page,1,2
+,Hacker pro,Trouver un mot de passe dans les cookies du site,1,3
+re,Re !,Revenir sur la page après l'avoir fermée,0,0
+daily_check,Routine,Revenir tous les jours sur la page pendant une semaine,0,10
+gatcha,Gatcha,Revenir sur la page tous les jours pendant un mois (4 jours manqués autorisés ?),1,10
+fleche,Flèche !,"Presser la flèche gauche sur le clavier plutôt que de cliquer sur le bouton avec une flèche qui permet d'ouvrir la liste de secrets.
+Pour les appareils sans clavier, ajouter la possibilité d'entrer un mot de passe du genre ""<-"", ""←"" ou ""<="" ou encore ""↤"", ""⇐""",0,2
+bourrin,Bourrin,"Spammer la touche flèche vers la gauche. (Ou le mdp pour les appareils sans clavier, voire écrire plusieurs fois la flèche)",0,4
+cgu_button,Au pied de la lettre,"Cliquer sur ""le bouton"" plutôt que de cliquer sur le bouton pour ouvrir les CGU.
+Le bouton ""CGU"" ne fera rien.",0,3
+http_400,HTTP 400,Cliquer-glisser le faux bouton CGU sur le champ de texte du mot de passe,0,8
+footer,Fan de foot,Atteindre le footer en bas de page,0,0
+mute,Censure par baillonement,Couper le son du site (documentation),0,7
+forgot_password,Tête en l'air,"Cliquer sur ""mot de passe oublié""",0,0
+no_internet,Je passe sous un tunnel,Ouvrir la page sans connexion (documentation),0,8
+cat_killer_1,😯,Tuer un chat,0,1
+cat_killer_10,😲,Tuer 10 chats,0,2
+cat_killer_50,😨,Tuer 50 chats,0,4
+cat_killer_100,😱,Tuer 100 chats,0,6
+,Ça fait du bien aux oreilles,Couper le son du site sur la page détente,0,7
+asleep,Euh... Vous dormez ?,Rester 5 minutes sur la page détente sans rien faire,0,5
+explorer,Explorateur,Visiter toutes les pages du site,0,3
+lost,Perdu,Changer 5 fois de pages en 15 secondes,0,4
