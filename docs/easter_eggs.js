@@ -23,15 +23,15 @@ class EasterEggsManager {
 		const parts = line.split(",");
 		
 		for (let i = 0; i < parts.length; i++) {
-			let part = parts[i]
+			let part = parts[i];
 			if (part.startsWith('"')) {
-				do {
+				while (!part.endsWith('"')) {
 					i++;
 					part += parts[i];
-				} while (!part.endsWith('"'));
-				part = part.slice(1, -1) // On enlève les guillemets
-			}
-			result.push(part)
+				};
+				part = part.slice(1, -1); // On enlève les guillemets
+			};
+			result.push(part);
 		}
 		
 		return result;
@@ -42,7 +42,7 @@ class EasterEggsManager {
 	 * @param {Array<string>} lines Les ligne à lire.
 	 */
 	parseCSV(lines) {
-		lines = this.trimCSV(lines);
+		// lines = this.trimCSV(lines); // Inutile depuis `.split("\r\n")` au lieu de `.split("\n")`
 		
 		const header = this.parseLine(lines.shift()); // shift() = pop(-1) en python
 
@@ -68,10 +68,10 @@ class EasterEggsManager {
 	searchUnlocked() {
 		const pairs = this.save.value.split("|")
 		for (const pair of pairs) {
-			const [id, unlockedDate] = pair.split("@")
-			const easterEgg = this.easterEggs.get(id)
+			const [id, unlockedDate] = pair.split("@");
+			const easterEgg = this.easterEggs.get(id);
 			if (easterEgg) {
-				easterEgg.unlockedDate = new Date(parseInt(unlockedDate))
+				easterEgg.unlockedDate = new Date(parseInt(unlockedDate));
 			}
 		}
 	}
@@ -97,7 +97,6 @@ class EasterEggsManager {
 	 * @returns {EasterEggsManager} this
 	 */
 	async loadEasterEggs() {
-		console.log(this)
 		this.parseCSV(
 			(
 				await fetch("/easter_eggs.csv").then((response) =>
@@ -122,9 +121,9 @@ class EasterEggsManager {
 		let result = easterEgg.unlock();
 		if (result) {
 			if (this.save.value) {
-				this.save.value += "|" + result
+				this.save.value += "|" + result;
 			} else {
-				this.save.value += result
+				this.save.value += result;
 			}
 		}
 	}

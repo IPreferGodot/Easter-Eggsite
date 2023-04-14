@@ -1,6 +1,10 @@
+/**
+ * Une sauvegarde sous la forme clé/valeur
+ * Changer sa valeur sauvgarde la paire automatiquement
+ * @property {string} value La valeur de la
+ */
 class Save {
 	/**
-	 * 
 	 * @param {string} key The key of the save
 	 * @param {string} value The initial value of the save (saved value takes priority)
 	 */
@@ -20,13 +24,12 @@ class Save {
 
 	save() {
 		localStorage.setItem(this.key, this.value)
-		// document.save = this.key + "=" + this.value + "; max-age=3153600000; path=/";
 	}
 }
 
 
 /**
- *
+ * Un singleton pour gérer les données sauvegardes
  * @property {Map} saves List of all saves
  */
 class SaveManager {
@@ -49,6 +52,11 @@ class SaveManager {
 		this._addKey(save.key)
 	}
 	
+	/**
+	 * Renvoie la sauvegarde demandée, en crée une si elle est inexistante
+	 * @param {string} key La clé de la sauvegarde demandée
+	 * @returns {Save}
+	 */
 	get(key) {
 		let save = this.saves.get(key);
 		if (!save) {
