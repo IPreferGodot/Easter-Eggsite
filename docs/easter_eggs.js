@@ -1,5 +1,8 @@
 import { SAVE_MANAGER } from "./save_system.js";
 
+/**
+ * Singleton to manage easter eggs.
+ */
 class EasterEggsManager {
 	constructor() {
 		this.easterEggs = new Map();
@@ -34,8 +37,12 @@ class EasterEggsManager {
 		return result;
 	}
 	
-	parse_csv_lines(lines) {
-		lines = this.trim_csv_lines(lines);
+	/**
+	 * Lit les lignes pour créer les easter eggs.
+	 * @param {Array<string>} lines Les ligne à lire.
+	 */
+	parseCSV(lines) {
+		lines = this.trimCSV(lines);
 		
 		const header = this.parseLine(lines.shift()); // shift() = pop(-1) en python
 
@@ -55,6 +62,9 @@ class EasterEggsManager {
 		}
 	}
 
+	/**
+	 * Débloque les easter eggs sauvegardés comme déjà débloqués.
+	 */
 	searchUnlocked() {
 		const pairs = this.save.value.split("|")
 		for (const pair of pairs) {
@@ -66,7 +76,12 @@ class EasterEggsManager {
 		}
 	}
 	
-	trim_csv_lines(lines) {
+	/**
+	 * @deprecated Peut-être devnu inutile depuis que les lignes sont séparés par \r\n plutôt que \n
+	 * @param {Array<string>} lines Les ligne dont il faut enlever les caractères transparents.
+	 * @returns Les lignes tronquées
+	 */
+	trimCSV(lines) {
 		return lines.reduce(
 			(accumulator, currentValue) => {
 				accumulator.push(currentValue.trim());
@@ -83,7 +98,7 @@ class EasterEggsManager {
 	 */
 	async loadEasterEggs() {
 		console.log(this)
-		this.parse_csv_lines(
+		this.parseCSV(
 			(
 				await fetch("/easter_eggs.csv").then((response) =>
 					response.text()
@@ -93,6 +108,9 @@ class EasterEggsManager {
 		this.searchUnlocked();
 	}
 
+	/**
+	 * @param {string} id L'ID de l'easter egg à débloquer, sous la forme `bidule_machin`
+	 */
 	unlock(id) {
 		let easterEgg = this.easterEggs.get(id);
 		if (!easterEgg) {
@@ -113,16 +131,15 @@ class EasterEggsManager {
 }
 const EASTER_EGGS_MANAGER = new EasterEggsManager();
 
+/**
+ * Un easter egg, qui stocke les informations qui lui sont relatives.
+ */
 class EasterEgg {
 	/**
 	 * @param {Map<string, string>} informations Informations of the easter egg
 	 */
 	constructor(informations) {
-		console.log(informations);
-
 		this.unlockedDate = false;
-
-		console.log(informations.entries());
 
 		for (let [key, value] of informations.entries()) {
 			switch (key) {
@@ -132,32 +149,14 @@ class EasterEgg {
 					value = value == "1"; break;
 			}
 			
-			// if (key == "difficulty") {
-			// 	value = parseInt(value);
-			// } else if (key) {
-				
-			// }
 			this[key] = value;
-			console.log(this);
 		}
-
-		console.log(this);
-		// 	this.id = id;
-		// 	this.name = name;
-		// 	this.description = description;
 
 		EASTER_EGGS_MANAGER.addEasterEgg(this);
 	}
-	// constructor(id, name = "Unnamed", description = "No description") {
-	// 	this.id = id;
-	// 	this.name = name;
-	// 	this.description = description;
-
-	// 	EASTER_EGGS_MANAGER.add_easter_egg(this);
-	// }
 
 	/**
-	 *
+	 * Appelée par EasterEggManager.unlock(), ne pas utiliser directement dans la page.
 	 * @returns {false|string} Renvoie faux si déjà débloqué, sinon la chaîne à sauvegarder
 	 */
 	unlock() {
@@ -170,11 +169,8 @@ class EasterEgg {
 	}
 }
 
-// export function unlock(easterEggId) {
-// 	console.log("Unlocked " + easterEggId);
-// 	new Save(easterEggId, "1");
-// }
-
+// On charge les easter eggs et on les attend.
 await EASTER_EGGS_MANAGER.loadEasterEggs();
+
 
 window.unlock = (id) => EASTER_EGGS_MANAGER.unlock(id); // Bad pratice, should find something better.
