@@ -10,13 +10,39 @@ class EasterEggsManager {
 		this.easterEggs.set(easterEgg.id, easterEgg);
 	}
 
+	/**
+	 * Lit une ligne CSV, en ne séparant pas aux niveaux des virgules incluses dans des chaînes de caractères.
+	 * @param {string} line La ligne à lire.
+	 * @returns {Array<string>} Les valeurs de la ligne
+	 */
+	parseLine(line) {
+		let result = [];
+		const parts = line.split(",");
+		
+		for (let i = 0; i < parts.length; i++) {
+			let part = parts[i]
+			if (part.startsWith('"')) {
+				do {
+					i++;
+					part += parts[i];
+				} while (!part.endsWith('"'));
+				part = part.slice(1, -1) // On enlève les guillemets
+			}
+			result.push(part)
+		}
+		
+		return result;
+	}
+	
 	parse_csv_lines(lines) {
-		const header = lines.shift().split(","); // comme pop_front()
+		lines = this.trim_csv_lines(lines);
+		
+		const header = this.parseLine(lines.shift()); // shift() = pop(-1) en python
 
 		let argumentMapper = new Map(); // bidouillage pour remplacer **kwargs
 
 		line_loop: for (const [lineIdx, line] of lines.entries()) {
-			let values = line.split(",");
+			let values = this.parseLine(line);
 			for (let [columnIdx, value] of values.entries()) {
 				value = value.trim();
 				if (value == "" || value == "\r") {
@@ -39,19 +65,30 @@ class EasterEggsManager {
 			}
 		}
 	}
-
+	
+	trim_csv_lines(lines) {
+		return lines.reduce(
+			(accumulator, currentValue) => {
+				accumulator.push(currentValue.trim());
+				return accumulator;
+			},
+			[]
+		);
+	}
+	
 	/**
 	 * Should be called when the manager is created
 	 * @async
 	 * @returns {EasterEggsManager} this
 	 */
 	async loadEasterEggs() {
+		console.log(this)
 		this.parse_csv_lines(
 			(
 				await fetch("/easter_eggs.csv").then((response) =>
 					response.text()
 				)
-			).split("\n")
+			).split("\r\n")
 		);
 		this.searchUnlocked();
 	}
@@ -87,11 +124,21 @@ class EasterEgg {
 
 		console.log(informations.entries());
 
-		for (const [key, value] of informations.entries()) {
-			if (key == "difficulty") {
-				value = parseInt(value);
+		for (let [key, value] of informations.entries()) {
+			switch (key) {
+				case "difficulty":
+					value = parseInt(value); break;
+				case "hidden":
+					value = value == "1"; break;
 			}
+			
+			// if (key == "difficulty") {
+			// 	value = parseInt(value);
+			// } else if (key) {
+				
+			// }
 			this[key] = value;
+			console.log(this);
 		}
 
 		console.log(this);
