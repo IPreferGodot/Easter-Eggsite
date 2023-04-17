@@ -1,6 +1,7 @@
 ## Custom ignores
 
 drafts/
+*draft*
 icon.ico
 .vscode/
 
