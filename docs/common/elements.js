@@ -19,10 +19,28 @@ class CommonFooter extends HTMLElement {
         // div.innerHTML = INNERS.get("footer")
         
         // shadowRoot.append(div);
-        console.log(INNERS.get("footer"))
-        console.log(INNERS.get("footer").innerHTML)
+        // this.style = "--hover-transition: none !important"
         shadowRoot.innerHTML = INNERS.get("footer");
+        // shadowRoot.addEventListener("DOMContentLoaded", () => this.style = "")
+        // this.addEventListener("loadeddata", this.enableTransition)
+        // this.enableTransition()
+        // setTimeout(this.enableTransition, 0, this)
+        // console.log(document.getElementsByClassName("stop-transition"))
+        // this.getElementsByClassName("stop-transition").array.forEach(element => {
+        //     element.classList.remove("stop-transition")
+        // });
     }
+    
+    // connectedCallback() {
+    //     this.style = ""
+    // }
+    
+    // enableTransition(bidule) {
+    //     // yield 2
+    //     console.log("zejhrbzeh,rb")
+    //     console.log(this)
+    //     bidule.style = ""
+    // }
 }
 
 customElements.define("common-footer", CommonFooter)
