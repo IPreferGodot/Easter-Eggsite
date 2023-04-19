@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="common/elements.js" type="module"></script>
-	<link rel="stylesheet" href="common/style.css" type="text/css" />
-</head>
-<body>
-    <a href="test_easter_eggs.html">Test easter Eggs</a>
-    <common-footer></common-footer>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="common/elements.js" type="module"></script>
+		<!-- <link rel="stylesheet" href="common/style.css" type="text/css" /> -->
+		<link rel="stylesheet" href="index.css" type="text/css" />
+	</head>
+	<body>
+		<a href="test_easter_eggs.html">Test easter Eggs</a>
+		<span>&#xE87C;</span>
+		<form>
+			<div class="flex-h">
+				<button
+                class="rounded-frame"
+					id="visibility-toggle"
+					onclick="document.getElementById('password-field').type = document.getElementById('password-field').type == 'password' ? 'text':'password'"
+				>
+					<img src="assets/visibility_on.svg" alt="Montrer/Cacher les charactères" />
+				</button>
+				<input type="password" id="password-field" class="rounded-frame" placeholder="Entrez un mot de passe" />
+				<input type="submit" value="Valider" id="submit-pwd" class="rounded-frame" />
+			</div>
+		</form>
+
+		<common-footer></common-footer>
+	</body>
 </html>

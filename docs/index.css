@@ -1,0 +1,40 @@
+@import url("/common/style.css");
+
+form > .flex-h {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em 4ch;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+#visibility-toggle {
+    color: var(--secondary-dark);
+    background-color: var(--secondary);
+    border-color: var(--secondary-dark);
+}
+
+#visibility-toggle img {
+    height: 100%;
+}
+
+#password-field {
+    width: 30ch;
+}
+
+#password-field::placeholder {
+    color: var(--grey)
+}
+
+#submit-pwd {
+    color: var(--base-dark);
+    background-color: var(--base);
+    border-color: var(--base-dark);
+}
+
+form > .flex-h > * {
+    padding: 0.2rem;
+    height: 2rem;
+    box-sizing: unset;
+}
