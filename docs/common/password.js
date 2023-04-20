@@ -17,3 +17,9 @@ function attempt(password) {
     
     // TODO implémenter pour les mots de passe non strict (qui acceptent de petites erreurs)
 };
+
+function onValidation() {
+    console.log("e")
+}
+
+window.onValidation = onValidation

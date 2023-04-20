@@ -1,6 +1,6 @@
-@import url("/common/style.css");
+@import url("./common/style.css");
 
-form > .flex-h {
+.flex-h {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,10 +21,18 @@ form > .flex-h {
 
 #password-field {
     width: 30ch;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 #password-field::placeholder {
     color: var(--grey)
+}
+
+#password-field:focus-visible {
+    outline: none;
+    box-shadow: none;
+    transform: translateY(-0.2em);
 }
 
 #submit-pwd {
@@ -33,8 +41,9 @@ form > .flex-h {
     border-color: var(--base-dark);
 }
 
-form > .flex-h > * {
+.flex-h > * {
     padding: 0.2rem;
     height: 2rem;
     box-sizing: unset;
+    transition: all 0.4s;
 }
