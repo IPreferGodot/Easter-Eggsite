@@ -5,26 +5,34 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<script src="common/elements.js" type="module"></script>
+		<script src="./common/elements.js" type="module"></script>
+		<script>
+			function toggleVisibility(visible = undefined) {
+				const pwdField = document.getElementById('password-field')
+				const img = document.getElementById("visibility-toggle-img")
+				
+				if (visible == undefined) {
+					visible = pwdField.type == 'password' // Si c'est invisible, on met en mode visible
+				}
+				
+				pwdField.type = visible ? 'text':'password'
+				
+				img.src = visible ? "./assets/visibility_off.svg" : "./assets/visibility_on.svg"
+				img.alt = visible ? "Cacher les charactères" : "Montrer les charactères"
+			}
+		</script>
 		<!-- <link rel="stylesheet" href="common/style.css" type="text/css" /> -->
-		<link rel="stylesheet" href="index.css" type="text/css" />
+		<link rel="stylesheet" href="./index.css" type="text/css" />
 	</head>
-	<body>
+	<body onload="toggleVisibility(false)">
 		<a href="test_easter_eggs.html">Test easter Eggs</a>
-		<span>&#xE87C;</span>
-		<form>
 			<div class="flex-h">
-				<button
-                class="rounded-frame"
-					id="visibility-toggle"
-					onclick="document.getElementById('password-field').type = document.getElementById('password-field').type == 'password' ? 'text':'password'"
-				>
-					<img src="assets/visibility_on.svg" alt="Montrer/Cacher les charactères" />
+				<button class="rounded-frame" id="visibility-toggle" onclick="toggleVisibility()">
+					<img src="./assets/visibility_on.svg" id="visibility-toggle-img" alt="Montrer/Cacher les charactères" />
 				</button>
 				<input type="password" id="password-field" class="rounded-frame" placeholder="Entrez un mot de passe" />
-				<input type="submit" value="Valider" id="submit-pwd" class="rounded-frame" />
+				<button type="submit" id="submit-pwd" class="rounded-frame">Valider</button>
 			</div>
-		</form>
 
 		<common-footer></common-footer>
 	</body>
