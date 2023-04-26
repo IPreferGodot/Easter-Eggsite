@@ -1,0 +1,38 @@
+:host {
+    font-size: 1.2rem;
+    --font-color: white;
+    --hover-transition: all 0.2s ease-out 0.1s;
+}
+
+nav {
+    background-color: var(--secondary-dark);
+    position: sticky;
+    top: 2px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    gap: 1em 4ch;
+    flex-wrap: wrap;
+    padding: 1em;
+}
+
+a {
+    color: var(--font-color);
+    text-decoration: none;
+    transition: var(--hover-transition);
+}
+
+.underline {
+    height: 0.1em;
+    border-radius: 0.05em; /* La moitié de la hauteur */
+    width: 0;
+    background-color: var(--font-color);
+    transition: var(--hover-transition);
+    margin: auto;
+}
+
+.link:hover .underline {
+    width: 100%;
+}

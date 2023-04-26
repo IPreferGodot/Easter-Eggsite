@@ -8,32 +8,36 @@
 		<script src="./common/elements.js" type="module"></script>
 		<script>
 			function toggleVisibility(visible = undefined) {
-				const pwdField = document.getElementById('password-field')
-				const img = document.getElementById("visibility-toggle-img")
-				
+				const pwdField = document.getElementById("password-field");
+				const img = document.getElementById("visibility-toggle-img");
+
 				if (visible == undefined) {
-					visible = pwdField.type == 'password' // Si c'est invisible, on met en mode visible
+					visible = pwdField.type == "password"; // Si c'est invisible, on met en mode visible
 				}
-				
-				pwdField.type = visible ? 'text':'password'
-				
-				img.src = visible ? "./assets/visibility_off.svg" : "./assets/visibility_on.svg"
-				img.alt = visible ? "Cacher les charactères" : "Montrer les charactères"
+
+				pwdField.type = visible ? "text" : "password";
+
+				img.src = visible ? "./assets/visibility_off.svg" : "./assets/visibility_on.svg";
+				img.alt = visible ? "Cacher les charactères" : "Montrer les charactères";
 			}
 		</script>
-		<!-- <link rel="stylesheet" href="common/style.css" type="text/css" /> -->
 		<link rel="stylesheet" href="./index.css" type="text/css" />
 	</head>
 	<body onload="toggleVisibility(false)">
-		<a href="test_easter_eggs.html">Test easter Eggs</a>
+		<common-topbar></common-topbar>
+		<main>
 			<div class="flex-h">
 				<button class="rounded-frame" id="visibility-toggle" onclick="toggleVisibility()">
-					<img src="./assets/visibility_on.svg" id="visibility-toggle-img" alt="Montrer/Cacher les charactères" />
+					<img
+						src="./assets/visibility_on.svg"
+						id="visibility-toggle-img"
+						alt="Montrer/Cacher les charactères"
+					/>
 				</button>
 				<input type="password" id="password-field" class="rounded-frame" placeholder="Entrez un mot de passe" />
 				<button type="submit" id="submit-pwd" class="rounded-frame">Valider</button>
 			</div>
-
+		</main>
 		<common-footer></common-footer>
 	</body>
 </html>

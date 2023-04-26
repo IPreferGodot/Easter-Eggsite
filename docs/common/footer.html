@@ -9,6 +9,10 @@
 	<body>
 		<footer>
 			<div class="flex-container">
+				<!-- Les liens sont contenus dans des doubles div pour créer l'effet de déplacement au survol :
+					- La première détecte le survol, et ne bouge pas, pour ne pas créer de boucle où le déplacement déplace en dehors de sous la souris.
+					- La deuxième sert à déplacer le lien, qui ne bougeait pas malgré `transform: translateY(-0.7rem);`
+				-->
 				<div><div><a href="test_easter_eggs.html">test_easter_eggs</a></div></div>
 				<div><div><a href="test_easter_eggs.html">Lorem</a></div></div>
 				<div><div><a href="test_easter_eggs.html">Ipsum</a></div></div>
