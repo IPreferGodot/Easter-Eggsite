@@ -1,61 +1,15 @@
 :host {
-    font-size: 14px;
+    font-size: 0.6rem;
     --font-color: white;
     --hover-transition: all 0.2s ease-out 0.1s;
-    /* animation-name: enable_transitions;
-    animation-duration: 1s;
-    animation-fill-mode: both; */
 }
-/* 
-@keyframes enable_transitions {
-    from {
-        --hover-transition: none;
-    }
-    to {
-        --hover-transition: all 0.2s ease-out 0.1s;
-    }
-} */
 
-
-/* .stop-transition {
-    transition: none !important;
-} */
-
-/* ul {
-    padding: 0;
-    list-style: none;
-    align-self: center;
-} */
 
 footer {
-    /* animation-name: enable_transitions;
-    animation-duration: 1s;
-    animation-fill-mode: both; */
-    /* --hover-transition: all 0.2s ease-out 0.1s; */
-    /* --font-color: white; */
     background-color: black;
     width: 100%;
     color: var(--font-color);
-    /* animation-name: enable-transition; */
-    /* animation: enable_transitions 1s; */
-    /* padding: 1rem; */
-    /* columns: 100px 3;
-    break-inside: avoid-column; */
-    /* column-count: 3; */
 }
-
-/* .center-content {
-    width: fit-content;
-    margin: auto;
-} */
-
-/* .grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    justify-items: center;
-    align-items: center;
-    grid-gap: 20px
-} */
 
 .flex-container {
     display: flex;
@@ -65,23 +19,9 @@ footer {
     padding: 1em;
 }
 
-/* .footer-section {
-    columns: initial;
-    color: var(--font-color);
-    margin: 1rem;
-    background-color: brown;
-    width: fit-content;
-} */
-
-/* .section-title {
-    font-size: 1.2rem;
-    font-style: bold;
-    text-decoration: underline;
-} */
-
 .flex-container a {
     padding: 0.1em;
-    font-size: 1.1rem;
+    font-size: 1.5em;
     font-style: normal;
     text-decoration: unset;
     /* border: 1px solid var(--font-color); */
@@ -92,23 +32,16 @@ footer {
     transition: var(--hover-transition);
 }
 .flex-container > div:hover > div {
-    text-decoration: underline;
+    text-decoration: underline 0.15em;
     /* font-weight: bold; */
     /* font-size: 1.3rem; */
     transition: var(--hover-transition);
     transform: translateY(-0.3em);
+    transform: translateY(-0.3em);
 }
-
-/* .flex-container div {
-    transition: var(--hover-transition); 
-} */
-/* .flex-container div:hover {
-    transform: translateY(-0.5em);
-} */
 
 .flex-container a:visited {
     color: var(--font-color);
-    /* filter: brightness(50%); */
 }
 
 .copyright {
