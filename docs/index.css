@@ -16,14 +16,13 @@
 }
 
 #visibility-toggle img {
-    /* height: 100%; */
     margin: 0 0.9ch;
-    fill: red;
 }
 
 #password-field {
     width: 30ch;
     padding-left: 1em;
+    background-color: var(--pure-white);
 }
 
 #password-field::placeholder {

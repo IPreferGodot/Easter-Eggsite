@@ -13,10 +13,17 @@
     --secondary: hsl(var(--secondary_color_hue) 100% 83%);
     --secondary-dark: hsl(var(--secondary_color_hue) 90% 69%);
     
+    --pure-white: white;
+    --light-grey: #ddd;
+    --shaded-light-grey: #ccc;
     --grey: #ADADAD;
     
     --basic-border-width: 0.2ch;
     --basic-border-color: var(--grey);
+    --basic-radius: 16px;
+    
+    
+    --hover-transition: all 0.2s ease-out 0.1s;
 }
 
 body {
@@ -34,7 +41,7 @@ body * {
 
 .rounded-frame {
     border: var(--basic-border-width) solid var(--basic-border-color);
-    border-radius: 16px;
+    border-radius: var(--basic-radius);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 

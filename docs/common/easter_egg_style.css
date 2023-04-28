@@ -1,0 +1,78 @@
+#main-container {
+    border-radius: var(--basic-radius);
+    border: 2px solid var(--secondary-dark);
+    border-left: none;
+    border-right: none;
+    padding: 0.3em 1.3ch;
+}
+
+#main-container:hover {
+    transition: var(--hover-transition);
+    background-color: var(--shaded-light-grey);
+}
+
+#header {
+    display: flex;
+    gap: 1.5ch;
+    align-items: center;
+}
+
+.unlocked-check-box {
+    height: 1em;
+    width: 1em;
+    border-radius: calc(var(--basic-radius) / 4);
+    background-color: var(--pure-white);
+    border: var(--basic-border-width) solid var(--basic-border-color);
+}
+.check-mark {
+    transition: var(--hover-transition);
+    visibility: hidden;
+}
+.check-mark[title] {
+    visibility: visible;
+}
+#main-container:hover .check-mark {
+    transform: translateY(-20%) scale(1.5);
+}
+
+
+
+.difficulty-container {
+    --difficulty: 99;
+    --size: 1.5em;
+    /* --hue: 0deg; */
+    --hue:calc((10 - var(--difficulty))*13.7);
+    --base-color: hsl(var(--hue), 100%, 65%);
+    --border-color: hsl(var(--hue), 70%, 55%);
+    
+    background-color: var(--base-color);
+    
+    width: var(--size);
+    height: var(--size);
+    font-size: 1.2em;
+    
+    /* padding: auto;
+    text-align: center;
+    text */
+    vertical-align: middle;
+    
+    
+    border-radius: var(--size);
+    border: var(--basic-border-width) solid var(--border-color);
+}
+
+.difficulty {
+    margin: 50%;
+    transform: translate(-50%, -50%) translateY(0.09em); /* On centre et on ajuste le léger décalage du texte car les chiffres ne prennent pas toute la hauteur de ligne */
+    width: fit-content;
+    height: fit-content;
+    vertical-align: middle;
+}
+
+.name {
+    flex-grow: 1;
+}
+
+.description {
+    margin-top: 0.3em;
+}
