@@ -1,0 +1,32 @@
+:host {
+    position: absolute;
+    right: 0;
+    
+    top: 50%;
+    transform: translateY(-50%);
+    
+    font-size: 0.8em;
+    
+    z-index: 2;
+    
+    max-width: 30em;
+}
+
+#right-pannel {
+    padding: 16px;
+    background-color: var(--light-grey);
+}
+
+#filters {
+    padding-bottom: 0.9em;
+}
+
+#easter-eggs-list {
+    display: flex;
+    flex-flow: column;
+    gap: 0.3em;
+    
+    max-height: 25em;
+    overflow: hidden scroll;
+    padding-right: 1ch;
+}

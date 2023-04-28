@@ -173,4 +173,5 @@ await EASTER_EGGS_MANAGER.loadEasterEggs();
 
 // On rend disponible le gestionnaire d'easter egg
 window.unlock = (id) => EASTER_EGGS_MANAGER.unlock(id); // Bad pratice, should find something better.
+
 export { EASTER_EGGS_MANAGER };
