@@ -99,7 +99,7 @@ class EasterEggsManager {
 	async loadEasterEggs() {
 		this.parseCSV(
 			(
-				await fetch("/easter_eggs.csv").then((response) =>
+				await fetch("./easter_eggs.csv").then((response) =>
 					response.text()
 				)
 			).split("\r\n")
