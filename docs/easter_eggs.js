@@ -20,7 +20,7 @@ class EasterEggsManager {
 	 */
 	parseLine(line) {
 		let result = [];
-		const parts = line.split(",");
+		const parts = line.trim().split(",");
 		
 		for (let i = 0; i < parts.length; i++) {
 			let part = parts[i];
@@ -97,13 +97,15 @@ class EasterEggsManager {
 	 * @returns {EasterEggsManager} this
 	 */
 	async loadEasterEggs() {
-		this.parseCSV(
-			(
-				await fetch("./easter_eggs.csv").then((response) =>
-					response.text()
-				)
-			).split("\r\n")
-		);
+		const easterEggsData = await fetch("./easter_eggs.csv").then((response) => response.text())
+		let lines = easterEggsData.split("\r\n")
+		
+		if (lines.lenght < 10) { // Seuil d'erreur arbitraire
+			// Sur la version web, les lignes sont séparées par \n plutôt que \r\n comme avec l'extension LiveServer
+			lines = easterEggsData.split("\n")
+		}
+		
+		this.parseCSV(lines);
 		this.searchUnlocked();
 	}
 

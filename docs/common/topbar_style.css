@@ -29,7 +29,7 @@ a {
     width: 0;
     background-color: var(--font-color);
     transition: var(--hover-transition);
-    margin: auto;
+    margin: 0.1em auto;
 }
 
 .link:hover .underline {
