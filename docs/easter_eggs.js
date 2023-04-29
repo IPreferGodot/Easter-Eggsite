@@ -100,7 +100,7 @@ class EasterEggsManager {
 		const easterEggsData = await fetch("./easter_eggs.csv").then((response) => response.text())
 		let lines = easterEggsData.split("\r\n")
 		
-		if (lines.lenght < 10) { // Seuil d'erreur arbitraire
+		if (lines.length < 10) { // Seuil d'erreur arbitraire
 			// Sur la version web, les lignes sont séparées par \n plutôt que \r\n comme avec l'extension LiveServer
 			lines = easterEggsData.split("\n")
 		}
