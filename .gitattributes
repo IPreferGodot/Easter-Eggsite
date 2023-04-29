@@ -1,2 +1,0 @@
-# Fix le fait que ce ne soit pas \r\n en fin de ligne sur le site, et que ça empêche la lecture des infos des easter eggs
-*.csv text eol=crlf

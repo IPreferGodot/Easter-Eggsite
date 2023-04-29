@@ -31,7 +31,7 @@ class EasterEggsManager {
 				};
 				part = part.slice(1, -1); // On enlève les guillemets
 			};
-			result.push(part);
+			result.push(part.replace("\n", "<br>"));
 		}
 		
 		return result;
@@ -98,12 +98,13 @@ class EasterEggsManager {
 	 */
 	async loadEasterEggs() {
 		const easterEggsData = await fetch("./easter_eggs.csv").then((response) => response.text())
-		let lines = easterEggsData.split("\r\n")
+		let lines = easterEggsData.split("EoL\n") // On split sur les fins de ligne personnalisées, mais par sur les fin de ligne dans les cellules
 		
-		if (lines.length < 10) { // Seuil d'erreur arbitraire
-			// Sur la version web, les lignes sont séparées par \n plutôt que \r\n comme avec l'extension LiveServer
-			lines = easterEggsData.split("\n")
-		}
+		// Plus nécessaire depuis le pré-traitement du fichier
+		// if (lines.length < 10) { // Seuil d'erreur arbitraire
+		// 	// Sur la version web, les lignes sont séparées par \n plutôt que \r\n comme avec l'extension LiveServer
+		// 	lines = easterEggsData.split("\n")
+		// }
 		
 		this.parseCSV(lines);
 		this.searchUnlocked();
