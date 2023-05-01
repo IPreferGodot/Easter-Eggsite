@@ -18,6 +18,8 @@
     --shaded-light-grey: #ccc;
     --grey: #ADADAD;
     
+    --black: black;
+    
     --basic-border-width: 0.2ch;
     --basic-border-color: var(--grey);
     --basic-radius: 16px;

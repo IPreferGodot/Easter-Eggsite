@@ -1,78 +1,139 @@
 #main-container {
-    border-radius: var(--basic-radius);
-    border: 2px solid var(--secondary-dark);
-    border-left: none;
-    border-right: none;
-    padding: 0.3em 1.3ch;
+
+	background-color: var(--light-grey);
+	padding: 0.3em 1.3ch;
+	width: fit-content;
+	pointer-events: auto;
 }
 
 #main-container:hover {
-    transition: var(--hover-transition);
-    background-color: var(--shaded-light-grey);
+	transition: var(--hover-transition);
+	background-color: var(--shaded-light-grey);
 }
 
 #header {
-    display: flex;
-    gap: 1.5ch;
-    align-items: center;
+	display: flex;
+	gap: 1.5ch;
+	align-items: center;
+}
+
+.unlocked {
+	visibility: hidden;
+	/* Prevent the space created to let place to this element*/
+	position: absolute;
+}
+.is-unlocked .unlocked {
+	position: unset;
+	visibility: visible;
 }
 
 .unlocked-check-box {
-    height: 1em;
-    width: 1em;
-    border-radius: calc(var(--basic-radius) / 4);
-    background-color: var(--pure-white);
-    border: var(--basic-border-width) solid var(--basic-border-color);
+	height: 1em;
+	width: 1em;
+	border-radius: calc(var(--basic-radius) / 4);
+	background-color: var(--pure-white);
+	border: var(--basic-border-width) solid var(--basic-border-color);
 }
 .check-mark {
-    transition: var(--hover-transition);
-    visibility: hidden;
+	transition: var(--hover-transition);
+	visibility: hidden;
 }
 .check-mark[title] {
-    visibility: visible;
+	visibility: visible;
 }
 #main-container:hover .check-mark {
-    transform: translateY(-20%) scale(1.5);
+	transform: translateY(-20%) scale(1.5);
 }
 
-
-
 .difficulty-container {
-    --difficulty: 99;
-    --size: 1.5em;
-    /* --hue: 0deg; */
-    --hue:calc((10 - var(--difficulty))*13.7);
-    --base-color: hsl(var(--hue), 100%, 65%);
-    --border-color: hsl(var(--hue), 70%, 55%);
-    
-    background-color: var(--base-color);
-    
-    width: var(--size);
-    height: var(--size);
-    font-size: 1.2em;
-    
-    /* padding: auto;
+	--difficulty: 99;
+	--size: 1.5em;
+	/* --hue: 0deg; */
+	--hue: calc((10 - var(--difficulty)) * 13.7);
+	--base-color: hsl(var(--hue), 100%, 65%);
+	--border-color: hsl(var(--hue), 70%, 55%);
+
+	background-color: var(--base-color);
+
+	width: var(--size);
+	height: var(--size);
+	font-size: 1.2em;
+
+	/* padding: auto;
     text-align: center;
     text */
-    vertical-align: middle;
-    
-    
-    border-radius: var(--size);
-    border: var(--basic-border-width) solid var(--border-color);
+	vertical-align: middle;
+
+	border-radius: var(--size);
+	border: var(--basic-border-width) solid var(--border-color);
 }
 
 .difficulty {
-    margin: 50%;
-    transform: translate(-50%, -50%) translateY(0.09em); /* On centre et on ajuste le léger décalage du texte car les chiffres ne prennent pas toute la hauteur de ligne */
-    width: fit-content;
-    height: fit-content;
-    vertical-align: middle;
+	margin: 50%;
+	transform: translate(-50%, -50%) translateY(0.09em); /* On centre et on ajuste le léger décalage du texte car les chiffres ne prennent pas toute la hauteur de ligne */
+	width: fit-content;
+	height: fit-content;
+	vertical-align: middle;
 }
 
-.name {
-    flex-grow: 1;
+#main-container {
+	position: relative;
 }
 
-.description {
-    margin-top: 0.3em;
+.tooltip {
+	height: min-content;
+	width: max-content;
+	max-width: 50ch;
+
+	pointer-events: none;
+
+	position: absolute;
+	filter: opacity(0%);
+
+	background-color: var(--black);
+	color: var(--pure-white);
+	padding: 1.4em;
+	border-radius: var(--basic-radius);
+    
+    z-index: 5;
+}
+
+.square-arrow {
+	position: absolute;
+	height: 1em;
+	width: 1em;
+
+	background-color: inherit;
+	z-index: -1;
+}
+
+@media screen and (width >= 700px) {
+	.tooltip {
+		top: 50%;
+		right: 110%;
+		transform: translateY(-50%);
+	}
+	.square-arrow {
+		top: 50%;
+		left: 100%;
+		transform: translate(-50%, -50%) rotate(45deg);
+		scale: 3 1;
+	}
+}
+@media screen and (width < 700px) {
+	.tooltip {
+		top: 170%;
+		right: 2ch;
+	}
+	.square-arrow {
+		bottom: 100%;
+		left: 80%;
+		transform: translate(-50%, 50%) rotate(45deg);
+		scale: 1 3;
+	}
+}
+
+#main-container.is-unlocked:hover .tooltip {
+	filter: opacity(100%);
+	transition: var(--hover-transition);
 }
