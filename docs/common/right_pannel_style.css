@@ -7,26 +7,68 @@
     
     font-size: 0.8em;
     
+    pointer-events: none;
+    
     z-index: 2;
     
-    max-width: 30em;
+    width: 100%;
 }
 
 #right-pannel {
-    padding: 16px;
-    background-color: var(--light-grey);
+    padding: 1ch;
 }
 
 #filters {
+    width: fit-content;
+    margin-left: auto;
     padding-bottom: 0.9em;
 }
 
+#list-container {
+    display: flex;
+    flex-flow: row-reverse;
+}
+#scroll-bar {
+    width: 1ch;
+    border-radius: 0.5ch;
+    background-color: var(--pure-white);
+    pointer-events: auto;
+    /* Let retrieve cursor position */
+    position: relative;
+}
+#scroll-cursor {
+    position: relative;
+    border-radius: inherit;
+    background-color: var(--light-grey);
+}
+#scroll-cursor:hover {
+    background-color: var(--shaded-light-grey);
+}
 #easter-eggs-list {
+    flex-grow: 1;
+    
     display: flex;
     flex-flow: column;
-    gap: 0.3em;
+    /* flex-direction: column-reverse; */
+    gap: 0.9em;
+    align-items: end;
     
     max-height: 25em;
     overflow: hidden scroll;
+    /* overflow-x: visible; */
     padding-right: 1ch;
+    
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; 
+}
+#easter-eggs-list::-webkit-scrollbar {
+    display: none;
+}
+/* Prevent clipping from last easter egg's shadow */
+#easter-eggs-list::after {
+    content: "";
+}
+/* Prevent clipping from first easter egg's tooltip */
+#easter-eggs-list::before {
+    content: "";
 }
