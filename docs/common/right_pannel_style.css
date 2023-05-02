@@ -72,3 +72,66 @@
 #easter-eggs-list::before {
     content: "";
 }
+
+
+/* Open button */
+#open-pannel {
+    --size: 2em;
+    height: var(--size);
+    width: var(--size);
+    
+    background-color: var(--base);
+    border-color: var(--base-dark);
+    color: var(--base-dark);
+    
+    padding: auto;
+    
+    pointer-events: all;
+    
+    /* Désactive le fait que le texte soit sélectionnable */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    margin-left: auto;
+    margin-right: 2ch;
+}
+
+#open-pannel img {
+    --size: 75%;
+    height: var(--size);
+    width: var(--size);
+    
+    filter:
+        hue-rotate(var(--base-color-hue))
+        drop-shadow(1px 1px 0 rgb(255, 0, 255))
+        drop-shadow(-1px -1px 0 rgb(0, 255, 255))
+    ;
+    
+    margin: calc(50% - var(--size) / 2);
+    
+    rotate: 180deg;
+    
+    transition: rotate 0.4s ease-in-out;
+}
+#open-pannel.functionnal img {
+    filter: hue-rotate(var(--base-color-hue));
+}
+#main-container.open img {
+    rotate: 0deg;
+}
+
+#open-pannel.functionnal:hover {
+    filter: brightness(90%);
+}
+
+#right-pannel {
+    transition: translate 0.4s ease-in-out;
+    translate: 100%;
+}
+.open #right-pannel {
+    translate: none;
+}

@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Marko+One&display=swap');
 
 :root {
-    --base_color_hue: 137deg; 
-    /* --secondary_color_hue: calc(var(--base_color_hue) + 180deg); */
-    --secondary_color_hue: 0deg;
+    --base-color-hue: 137deg; 
+    /* --secondary-color-hue: calc(var(--base-color-hue) + 180deg); */
+    --secondary-color-hue: 0deg;
     
-    --base-light: hsl(var(--base_color_hue) 100% 96%);
-    --base: hsl(var(--base_color_hue) 100% 83%);
-    --base-dark: hsl(var(--base_color_hue) 62% 41%);
+    --base-light: hsl(var(--base-color-hue) 100% 96%);
+    --base: hsl(var(--base-color-hue) 100% 83%);
+    --base-dark: hsl(var(--base-color-hue) 62% 41%);
     
-    --secondary-light: hsl(var(--secondary_color_hue) 100% 96%);
-    --secondary: hsl(var(--secondary_color_hue) 100% 83%);
-    --secondary-dark: hsl(var(--secondary_color_hue) 90% 69%);
+    --secondary-light: hsl(var(--secondary-color-hue) 100% 96%);
+    --secondary: hsl(var(--secondary-color-hue) 100% 83%);
+    --secondary-dark: hsl(var(--secondary-color-hue) 90% 69%);
     
     --pure-white: white;
     --light-grey: #ddd;
@@ -26,6 +26,12 @@
     
     
     --hover-transition: all 0.2s ease-out 0.1s;
+}
+
+/* Disable horizontal scrolling */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
