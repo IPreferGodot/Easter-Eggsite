@@ -18,13 +18,10 @@
 }
 
 .unlocked {
-	visibility: hidden;
-	/* Prevent the space created to let place to this element*/
-	position: absolute;
+	display: none;
 }
 .is-unlocked .unlocked {
-	position: unset;
-	visibility: visible;
+	display: block;
 }
 
 .unlocked-check-box {
