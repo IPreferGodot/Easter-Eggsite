@@ -4,9 +4,17 @@ function clamp(num, min, max) {
 
 // Prevent default behavior, for example when selecting text
 function stopDefault(e) {
-    e.preventDefault()
+    e.preventDefault();
     return false;
 }
 
+// Détecte si l'écran est tactile
+function isTouchDevice() {
+    return (
+        ('ontouchstart' in window)
+        || (navigator.maxTouchPoints > 0)
+        || (navigator.msMaxTouchPoints > 0)
+    );
+}
 
-export { clamp, stopDefault };
+export { clamp, stopDefault, isTouchDevice };

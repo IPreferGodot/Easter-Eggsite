@@ -57,13 +57,18 @@
     overflow: hidden scroll;
     /* overflow-x: visible; */
     padding-right: 1ch;
-    
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none; 
 }
-#easter-eggs-list::-webkit-scrollbar {
+
+/* Disable scroll bars */
+.no-scroll-bar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+}
+#easter-eggs-list.no-scroll-bar::-webkit-scrollbar {
     display: none;
 }
+
+
 /* Prevent clipping from last easter egg's shadow */
 #easter-eggs-list::after {
     content: "";

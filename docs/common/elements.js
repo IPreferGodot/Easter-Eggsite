@@ -1,5 +1,5 @@
 import { EASTER_EGGS_MANAGER } from "../easter_eggs.js";
-import { clamp, stopDefault } from "./utility.js";
+import { clamp, stopDefault, isTouchDevice } from "./utility.js";
 
 const HTML_TO_LOAD = [
     "footer",
@@ -189,6 +189,12 @@ class CommonRightPannel extends HTMLElementHelper {
 		
 		// Timeout sinon les propriétés ne sont pas à jour
 		setTimeout(() => {this.updateScroll()}, 500);
+		
+		if (isTouchDevice()) {
+			easterEggList.style.pointerEvents = "auto";
+			easterEggList.classList.remove("no-scroll-bar");
+			scrollBar.style.display = "none"
+		}
 	}
 	
 	updateScroll() {
