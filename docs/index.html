@@ -6,6 +6,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Easter Eggsite</title>
 		<script src="./common/elements.js" type="module"></script>
+		<style id="prevent-transition">
+			* {
+				transition: none !important;
+			}
+		</style>
 		<script>
 			function toggleVisibility(visible = undefined) {
 				const pwdField = document.getElementById("password-field");
@@ -41,4 +46,10 @@
 		</main>
 		<common-footer></common-footer>
 	</body>
+	
+	<!-- Loaded in last place -->
+	<script>
+		console.log(document.getElementById("prevent-transition"))
+		document.getElementById("prevent-transition").remove()
+	</script>
 </html>
