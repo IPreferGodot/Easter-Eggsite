@@ -1,5 +1,5 @@
 import { EASTER_EGGS_MANAGER } from "../easter_eggs.js";
-import { clamp, stopDefault } from "./utility.js";
+import { clamp, stopDefault, isTouchDevice } from "./utility.js";
 
 const HTML_TO_LOAD = [
     "footer",
@@ -17,28 +17,47 @@ const INNERS = await HTML_TO_LOAD.reduce(
     new Map()
 );
 
-class CommonFooter extends HTMLElement {
-	constructor() {
+const noTranisition = (() => {
+	let sheet = new CSSStyleSheet();
+	sheet.replaceSync("* {transition: none !important}");
+	return sheet;
+})();
+
+
+class HTMLElementHelper extends HTMLElement {
+	constructor(name) {
 		super();
-		const shadowRoot = this.attachShadow({ mode: "open" });
-		shadowRoot.innerHTML = INNERS.get("footer");
+		this.root = this.attachShadow({ mode: "open" });
+		let sheets = [...this.root.adoptedStyleSheets, noTranisition]
+		this.root.adoptedStyleSheets = sheets;
+		this.root.innerHTML = INNERS.get(name);
+		
+		setTimeout(
+			() => {
+				sheets.splice(this.root.adoptedStyleSheets.indexOf(noTranisition), 1);
+				this.root.adoptedStyleSheets = sheets;
+			},
+			3000 // Enough for slow 3G (tested with devtool's throttling)
+		)
 	}
 }
 
-class CommonTopbar extends HTMLElement {
+class CommonFooter extends HTMLElementHelper {
 	constructor() {
-		super();
-		const shadowRoot = this.attachShadow({ mode: "open" });
-		shadowRoot.innerHTML = INNERS.get("topbar");
+		super("footer");
+	}
+}
+
+class CommonTopbar extends HTMLElementHelper {
+	constructor() {
+		super("topbar");
 	}
 }
 
 const EASTER_EGG_INFOS = ["name", "difficulty", "description", "unlocked"];
-class EasterEgg extends HTMLElement {
+class EasterEgg extends HTMLElementHelper {
 	constructor() {
-		super();
-		this.root = this.attachShadow({ mode: "open" });
-		this.root.innerHTML = INNERS.get("easter_egg");
+		super("easter_egg");
 	}
 
 	static get observedAttributes() {
@@ -94,11 +113,9 @@ class EasterEgg extends HTMLElement {
 	}
 }
 
-class CommonRightPannel extends HTMLElement {
+class CommonRightPannel extends HTMLElementHelper {
 	constructor() {
-		super();
-		this.root = this.attachShadow({ mode: "open" });
-		this.root.innerHTML = INNERS.get("right_pannel");
+		super("right_pannel");
 
 		const easterEggList = this.root.querySelector("#easter-eggs-list");
 		for (const [id, easterEgg] of EASTER_EGGS_MANAGER.easterEggs) {
@@ -172,6 +189,12 @@ class CommonRightPannel extends HTMLElement {
 		
 		// Timeout sinon les propriétés ne sont pas à jour
 		setTimeout(() => {this.updateScroll()}, 500);
+		
+		if (isTouchDevice()) {
+			easterEggList.style.pointerEvents = "auto";
+			easterEggList.classList.remove("no-scroll-bar");
+			scrollBar.style.display = "none"
+		}
 	}
 	
 	updateScroll() {
