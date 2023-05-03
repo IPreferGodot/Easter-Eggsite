@@ -29,22 +29,24 @@
 		<link rel="stylesheet" href="./index.css" type="text/css" />
 	</head>
 	<body onload="toggleVisibility(false)">
-		<common-topbar></common-topbar>
-		<common-right-pannel></common-right-pannel>
-		<main>
-			<div class="flex-h">
-				<button class="rounded-frame" id="visibility-toggle" onclick="toggleVisibility()">
-					<img
-						src="./assets/visibility_on.svg"
-						id="visibility-toggle-img"
-						alt="Montrer/Cacher les charactères"
-					/>
-				</button>
-				<input type="password" id="password-field" class="rounded-frame" placeholder="Entrez un mot de passe" />
-				<button type="submit" id="submit-pwd" class="rounded-frame">Valider</button>
-			</div>
-		</main>
-		<common-footer></common-footer>
+		<div class="page-container">
+			<common-topbar></common-topbar>
+			<common-right-pannel></common-right-pannel>
+			<main>
+				<div class="flex-h">
+					<button class="rounded-frame" id="visibility-toggle" onclick="toggleVisibility()">
+						<img
+							src="./assets/visibility_on.svg"
+							id="visibility-toggle-img"
+							alt="Montrer/Cacher les charactères"
+						/>
+					</button>
+					<input type="password" id="password-field" class="rounded-frame" placeholder="Entrez un mot de passe" />
+					<button type="submit" id="submit-pwd" class="rounded-frame">Valider</button>
+				</div>
+			</main>
+			<common-footer></common-footer>
+		</div>
 	</body>
 	
 	<!-- Loaded in last place -->

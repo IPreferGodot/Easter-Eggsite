@@ -29,13 +29,17 @@
 }
 
 /* Disable horizontal scrolling */
-html, body {
+html, body, .page-container {
     max-width: 100%;
     overflow-x: hidden;
 }
 
 body {
     margin: 0;
+}
+
+.page-container {
+    position: relative;
     background-color: var(--secondary-light);
     /* font: Comfortaa; */
     font-family: 'Comfortaa', cursive;
@@ -58,11 +62,11 @@ button:hover {
 }
 
 /* Push footer down */
-html, body {
+html, body, .page-container {
     height: 100%;
 }
 
-body {
+.page-container {
     display: flex;
     flex-direction: column;
     gap: 3rem;
