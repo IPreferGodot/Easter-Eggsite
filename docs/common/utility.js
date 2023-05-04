@@ -17,4 +17,22 @@ function isTouchDevice() {
     );
 }
 
-export { clamp, stopDefault, isTouchDevice };
+class EventInstance {
+    constructor() {
+        this.callbacks = [];
+    }
+    
+    bind(func) {
+        this.callbacks.push(func);
+    }
+    unBind(func) {
+        this.callbacks.splice(this.callbacks.find(func), 1);
+    }
+    fire(args = {}) {
+        for (const func of this.callbacks) {
+            func(args)
+        }
+    }
+}
+
+export { clamp, stopDefault, isTouchDevice, EventInstance };

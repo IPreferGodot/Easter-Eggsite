@@ -1,4 +1,5 @@
 import { SAVE_MANAGER } from "./save_system.js";
+import { EventInstance } from "./common/utility.js";
 
 /**
  * Singleton to manage easter eggs.
@@ -7,6 +8,8 @@ class EasterEggsManager {
 	constructor() {
 		this.easterEggs = new Map();
 		this.save = SAVE_MANAGER.get("easter-eggs");
+		
+		this.save.valueChanged.bind(() => {this.searchUnlocked()})
 	}
 
 	addEasterEgg(easterEgg) {
@@ -65,13 +68,31 @@ class EasterEggsManager {
 	/**
 	 * Débloque les easter eggs sauvegardés comme déjà débloqués.
 	 */
-	searchUnlocked() {
+	searchUnlocked(FirstLoad = false) {
 		const pairs = this.save.value.split("|")
+		
+		let unlockeds = []
+		
 		for (const pair of pairs) {
 			const [id, unlockedDate] = pair.split("@");
 			const easterEgg = this.easterEggs.get(id);
 			if (easterEgg) {
+				unlockeds.push(easterEgg)
+				
+				const wasUnlocked = easterEgg.unlockedDate
 				easterEgg.unlockedDate = new Date(parseInt(unlockedDate));
+				if (!FirstLoad && !wasUnlocked) {
+					easterEgg.onUnlock.fire()
+				}
+			}
+		}
+		
+		// There is no reason an easterEgg would be disunlocked, but implemented just in case, for example if we add a restart option
+		if (!FirstLoad) {
+			for (const [id, easterEgg] of this.easterEggs) {
+				if (!unlockeds.includes(easterEgg) && easterEgg.unlockedDate) {
+					easterEgg.unlockedDate = false
+				}
 			}
 		}
 	}
@@ -107,7 +128,7 @@ class EasterEggsManager {
 		// }
 		
 		this.parseCSV(lines);
-		this.searchUnlocked();
+		this.searchUnlocked(true);
 	}
 
 	/**
@@ -141,7 +162,10 @@ class EasterEgg {
 	 * @param {Map<string, string>} informations Informations of the easter egg
 	 */
 	constructor(informations) {
-		this.unlockedDate = false;
+		this._unlockedDate = false;
+		
+		this.onUnlock = new EventInstance(); // Not fired if unlocked in another tab
+		this.onUnlockedDateChanged = new EventInstance();
 
 		for (let [key, value] of informations.entries()) {
 			switch (key) {
@@ -156,7 +180,16 @@ class EasterEgg {
 
 		EASTER_EGGS_MANAGER.addEasterEgg(this);
 	}
-
+	
+	get unlockedDate() { return this._unlockedDate; }
+	set unlockedDate(newValue) {
+		const oldValue = this._unlockedDate
+		this._unlockedDate = newValue;
+		if ((oldValue || new Date(-1)).getTime() != (newValue || new Date(-1)).getTime()) {
+			this.onUnlockedDateChanged.fire({ "unlockedDate": newValue, "oldValue": oldValue });
+		}
+	}
+	
 	/**
 	 * Appelée par EasterEggManager.unlock(), ne pas utiliser directement dans la page.
 	 * @returns {false|string} Renvoie faux si déjà débloqué, sinon la chaîne à sauvegarder

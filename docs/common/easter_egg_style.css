@@ -86,6 +86,8 @@
 
 	position: absolute;
 	filter: opacity(0%);
+	
+	display: none;
 
 	background-color: var(--black);
 	color: var(--pure-white);
@@ -133,4 +135,5 @@
 #main-container.is-unlocked:hover .tooltip {
 	filter: opacity(100%);
 	transition: var(--hover-transition);
+	display: unset;
 }
