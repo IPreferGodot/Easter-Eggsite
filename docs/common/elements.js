@@ -117,7 +117,7 @@ class CommonRightPannel extends HTMLElementHelper {
 	constructor() {
 		super("right_pannel");
 
-		const easterEggList = this.root.querySelector("#easter-eggs-list");
+		const easterEggListHeightObserver = this.root.querySelector("#easter-eggs-list .scroll-height-observer");
 		for (const [id, easterEgg] of EASTER_EGGS_MANAGER.easterEggs) {
 			const tag = document.createElement("easter-egg");
 
@@ -133,10 +133,10 @@ class CommonRightPannel extends HTMLElementHelper {
 
 			easterEgg.onUnlockedDateChanged.bind((event) => {tag.setAttribute("unlocked", event.unlockedDate ? event.unlockedDate : "false")})
 			
-			easterEggList.appendChild(tag);
+			easterEggListHeightObserver.appendChild(tag);
 		}
 		
-		const list = this.root.querySelector("#easter-eggs-list");
+		const easterEggList = this.root.querySelector("#easter-eggs-list");
 		const scrollBar = this.root.querySelector("#scroll-bar");
 		this.cursor = this.root.querySelector("#scroll-cursor");
 		this.cursor.addEventListener('selectstart', stopDefault);
@@ -145,10 +145,10 @@ class CommonRightPannel extends HTMLElementHelper {
 			const newCursorPos = clamp(
 				pseudoThis.scrollStartCursorY + event.clientY - pseudoThis.scrollStartMouseY,
 				0,
-				list.clientHeight - pseudoThis.cursor.clientHeight
+				easterEggList.clientHeight - pseudoThis.cursor.clientHeight
 				)
 			pseudoThis.cursor.style.top = newCursorPos + "px"
-			list.scroll(0, list.scrollHeight * newCursorPos / scrollBar.clientHeight)
+			easterEggList.scroll(0, easterEggList.scrollHeight * newCursorPos / scrollBar.clientHeight)
 			// const newScroll = pseudoThis.scrollStartScrollY + event.clientY - pseudoThis.scrollStartMouseY
 			// list.scroll(0, newScroll);
 			// pseudoThis.cursor.style.top = newScroll / list.scrollHeight * (scrollBar.clientHeight - pseudoThis.cursor.clientHeight) + "px"
@@ -160,7 +160,7 @@ class CommonRightPannel extends HTMLElementHelper {
 				window.getSelection().removeAllRanges();
 				this.scrollStartMouseY = event.clientY;
 				this.scrollStartCursorY = this.cursor.offsetTop;
-				console.log('list : ' + list.clientHeight + " cursor : " + this.cursor.clientHeight)
+				console.log('list : ' + easterEggList.clientHeight + " cursor : " + this.cursor.clientHeight)
 				console.log(this.scrollStartCursorY)
 				this.cursor.style.backgroundColor = "var(--grey)"
 				window.addEventListener("mousemove", onMouseMove);
@@ -182,19 +182,27 @@ class CommonRightPannel extends HTMLElementHelper {
 					return;	
 				}
 				
-				if (easterEggList.getBoundingClientRect().top <= event.clientY && event.clientY <= easterEggList.getBoundingClientRect().bottom) {
-				list.scroll(0, list.scrollTop + event.deltaY * (event.altKey?4:(event.shiftKey?1.5:0.5)))
-				this.cursor.style.top = list.scrollTop / list.scrollHeight * (scrollBar.clientHeight) + "px"
+				if (easterEggListHeightObserver.getBoundingClientRect().top <= event.clientY && event.clientY <= easterEggListHeightObserver.getBoundingClientRect().bottom) {
+				easterEggList.scroll(0, easterEggList.scrollTop + event.deltaY * (event.altKey?4:(event.shiftKey?1.5:0.5)))
+				this.cursor.style.top = easterEggList.scrollTop / easterEggList.scrollHeight * (scrollBar.clientHeight) + "px"
 			}
 			}
 		);
 		
 		// Timeout sinon les propriétés ne sont pas à jour
-		setTimeout(() => {this.updateScroll()}, 500);
+		// setTimeout(() => {this.updateScroll()}, 500);
+		
+		new ResizeObserver(
+			(entries) => {
+				this.updateScroll();
+				console.dir(easterEggListHeightObserver)
+				console.log(entries.pop())
+			}
+		).observe(easterEggListHeightObserver ,{ "box": "content-box" })
 		
 		if (isTouchDevice()) {
-			easterEggList.style.pointerEvents = "auto";
-			easterEggList.classList.remove("no-scroll-bar");
+			easterEggListHeightObserver.style.pointerEvents = "auto";
+			easterEggListHeightObserver.classList.remove("no-scroll-bar");
 			scrollBar.style.display = "none"
 		}
 	}
@@ -202,12 +210,19 @@ class CommonRightPannel extends HTMLElementHelper {
 	updateScroll() {
 		const list = this.root.querySelector("#easter-eggs-list");
 		const scrollBar = this.root.querySelector("#scroll-bar");
-		const newHeight = (list.clientHeight / list.scrollHeight) * scrollBar.clientHeight
+		
+		if (list.scrollHeight == list.clientHeight) {
+			scrollBar.style.display = "none";
+		} else {
+			scrollBar.style.display = "unset";
+		}
+		
+		const newHeight = (list.clientHeight / list.scrollHeight) * scrollBar.clientHeight;
 		if (!newHeight) {
 			setTimeout(() => {this.updateScroll()}, 500);
 			return;
 		}
-		console.log((list.clientHeight / list.scrollHeight) * scrollBar.clientHeight + "px")
+		
 		this.cursor.style.height = (list.clientHeight / list.scrollHeight) * scrollBar.clientHeight + "px";
 	}
 }

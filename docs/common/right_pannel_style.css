@@ -35,6 +35,8 @@
     pointer-events: auto;
     /* Let retrieve cursor position */
     position: relative;
+    
+    margin-left: 1ch;
 }
 #scroll-cursor {
     position: relative;
@@ -45,6 +47,17 @@
     background-color: var(--shaded-light-grey);
 }
 #easter-eggs-list {
+    height: fit-content;
+    max-height: 25em;
+    overflow: hidden scroll;
+    
+    height: 100%;
+    width: 100%;
+}
+#easter-eggs-list .scroll-height-observer {
+    height: 100%;
+    width: 100%;
+    
     flex-grow: 1;
     
     display: flex;
@@ -53,10 +66,8 @@
     gap: 0.9em;
     align-items: end;
     
-    max-height: 25em;
-    overflow: hidden scroll;
     /* overflow-x: visible; */
-    padding-right: 1ch;
+    /* padding-right: 2ch; */
 }
 
 /* Disable scroll bars */
@@ -70,11 +81,11 @@
 
 
 /* Prevent clipping from last easter egg's shadow */
-#easter-eggs-list::after {
+#easter-eggs-list .scroll-height-observer::after {
     content: "";
 }
 /* Prevent clipping from first easter egg's tooltip */
-#easter-eggs-list::before {
+#easter-eggs-list .scroll-height-observer::before {
     content: "";
 }
 
