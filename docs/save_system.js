@@ -1,3 +1,5 @@
+import { EventInstance } from "./common/utility.js";
+
 /**
  * Une sauvegarde sous la forme clé/valeur
  * Changer sa valeur sauvgarde la paire automatiquement
@@ -12,6 +14,18 @@ class Save {
 		this.key = key;
 		this.value = localStorage.getItem(key) || value;
 		this.save();
+		
+		this.valueChanged = new EventInstance()
+		
+		window.addEventListener(
+			"storage",
+			(event) => {
+				if (event.key == key) {
+					this._value = localStorage.getItem(key);
+					this.valueChanged.fire({ "newValue":this.value })
+				}
+			}
+		)
 	}
 
 	get value() {

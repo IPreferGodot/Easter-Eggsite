@@ -131,6 +131,8 @@ class CommonRightPannel extends HTMLElementHelper {
 				}
 			}
 
+			easterEgg.onUnlockedDateChanged.bind((event) => {tag.setAttribute("unlocked", event.unlockedDate ? event.unlockedDate : "false")})
+			
 			easterEggList.appendChild(tag);
 		}
 		
