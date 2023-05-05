@@ -9,7 +9,7 @@ class EasterEggsManager {
 		this.easterEggs = new Map();
 		this.save = SAVE_MANAGER.get("easter-eggs");
 		
-		this.save.valueChanged.bind(() => {this.searchUnlocked()})
+		this.save.valueChanged.bind(() => {this.searchUnlocked()});
 	}
 
 	addEasterEgg(easterEgg) {
@@ -56,7 +56,7 @@ class EasterEggsManager {
 			for (let [columnIdx, value] of values.entries()) {
 				value = value.trim();
 				if (value == "" || value == "\r") {
-					console.warn(`Incomplete easter egg info at line ${lineIdx + 2} of the csv configuration file.`) // +2 because header was removed
+					console.warn(`Incomplete easter egg info at line ${lineIdx + 2} of the csv configuration file.`); // +2 because header was removed
 					continue line_loop;
 				}
 				argumentMapper.set(header[columnIdx], value);
@@ -69,20 +69,20 @@ class EasterEggsManager {
 	 * Débloque les easter eggs sauvegardés comme déjà débloqués.
 	 */
 	searchUnlocked(FirstLoad = false) {
-		const pairs = this.save.value.split("|")
+		const pairs = this.save.value.split("|");
 		
-		let unlockeds = []
+		let unlockeds = [];
 		
 		for (const pair of pairs) {
 			const [id, unlockedDate] = pair.split("@");
 			const easterEgg = this.easterEggs.get(id);
 			if (easterEgg) {
-				unlockeds.push(easterEgg)
+				unlockeds.push(easterEgg);
 				
-				const wasUnlocked = easterEgg.unlockedDate
+				const wasUnlocked = easterEgg.unlockedDate;
 				easterEgg.unlockedDate = new Date(parseInt(unlockedDate));
 				if (!FirstLoad && !wasUnlocked) {
-					easterEgg.onUnlock.fire()
+					easterEgg.onUnlock.fire();
 				}
 			}
 		}
@@ -91,7 +91,7 @@ class EasterEggsManager {
 		if (!FirstLoad) {
 			for (const [id, easterEgg] of this.easterEggs) {
 				if (!unlockeds.includes(easterEgg) && easterEgg.unlockedDate) {
-					easterEgg.unlockedDate = false
+					easterEgg.unlockedDate = false;
 				}
 			}
 		}
@@ -118,8 +118,8 @@ class EasterEggsManager {
 	 * @returns {EasterEggsManager} this
 	 */
 	async loadEasterEggs() {
-		const easterEggsData = await fetch("./assets/easter_eggs.csv").then((response) => response.text())
-		let lines = easterEggsData.split("EoL\n") // On split sur les fins de ligne personnalisées, mais par sur les fin de ligne dans les cellules
+		const easterEggsData = await fetch("./assets/easter_eggs.csv").then((response) => response.text());
+		let lines = easterEggsData.split("EoL\n"); // On split sur les fins de ligne personnalisées, mais par sur les fin de ligne dans les cellules
 		
 		// Plus nécessaire depuis le pré-traitement du fichier
 		// if (lines.length < 10) { // Seuil d'erreur arbitraire
@@ -183,7 +183,7 @@ class EasterEgg {
 	
 	get unlockedDate() { return this._unlockedDate; }
 	set unlockedDate(newValue) {
-		const oldValue = this._unlockedDate
+		const oldValue = this._unlockedDate;
 		this._unlockedDate = newValue;
 		if ((oldValue || new Date(-1)).getTime() != (newValue || new Date(-1)).getTime()) {
 			this.onUnlockedDateChanged.fire({ "unlockedDate": newValue, "oldValue": oldValue });

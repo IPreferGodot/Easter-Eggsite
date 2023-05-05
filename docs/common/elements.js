@@ -28,7 +28,7 @@ class HTMLElementHelper extends HTMLElement {
 	constructor(name) {
 		super();
 		this.root = this.attachShadow({ mode: "open" });
-		let sheets = [...this.root.adoptedStyleSheets, noTranisition]
+		let sheets = [...this.root.adoptedStyleSheets, noTranisition];
 		this.root.adoptedStyleSheets = sheets;
 		this.root.innerHTML = INNERS.get(name);
 		
@@ -38,7 +38,7 @@ class HTMLElementHelper extends HTMLElement {
 				this.root.adoptedStyleSheets = sheets;
 			},
 			3000 // Enough for slow 3G (tested with devtool's throttling)
-		)
+		);
 	}
 }
 
@@ -63,6 +63,8 @@ class EasterEgg extends HTMLElementHelper {
 	static get observedAttributes() {
 		return EASTER_EGG_INFOS;
 	}
+	
+	// Sync EasterEgg instance with tag
 	get name() {
 		return this.getAttribute("name");
 	}
@@ -79,6 +81,12 @@ class EasterEgg extends HTMLElementHelper {
 		return this.getAttribute("description");
 	}
 	set description(newValue) {
+		this.setAttribute("description", newValue);
+	}
+	get unlocked() {
+		return this.getAttribute("description");
+	}
+	set unlocked(newValue) {
 		this.setAttribute("description", newValue);
 	}
 
@@ -146,9 +154,9 @@ class CommonRightPannel extends HTMLElementHelper {
 				pseudoThis.scrollStartCursorY + event.clientY - pseudoThis.scrollStartMouseY,
 				0,
 				easterEggList.clientHeight - pseudoThis.cursor.clientHeight
-				)
-			pseudoThis.cursor.style.top = newCursorPos + "px"
-			easterEggList.scroll(0, easterEggList.scrollHeight * newCursorPos / scrollBar.clientHeight)
+			);
+			pseudoThis.cursor.style.top = newCursorPos + "px";
+			easterEggList.scroll(0, easterEggList.scrollHeight * newCursorPos / scrollBar.clientHeight);
 			// const newScroll = pseudoThis.scrollStartScrollY + event.clientY - pseudoThis.scrollStartMouseY
 			// list.scroll(0, newScroll);
 			// pseudoThis.cursor.style.top = newScroll / list.scrollHeight * (scrollBar.clientHeight - pseudoThis.cursor.clientHeight) + "px"
@@ -160,18 +168,18 @@ class CommonRightPannel extends HTMLElementHelper {
 				window.getSelection().removeAllRanges();
 				this.scrollStartMouseY = event.clientY;
 				this.scrollStartCursorY = this.cursor.offsetTop;
-				console.log('list : ' + easterEggList.clientHeight + " cursor : " + this.cursor.clientHeight)
-				console.log(this.scrollStartCursorY)
-				this.cursor.style.backgroundColor = "var(--grey)"
+				// console.log('list : ' + easterEggList.clientHeight + " cursor : " + this.cursor.clientHeight);
+				// console.log(this.scrollStartCursorY);
+				this.cursor.style.backgroundColor = "var(--grey)";
 				window.addEventListener("mousemove", onMouseMove);
 				// window.addEventListener('selectstart', stopDefault);
 			}
-			);
-			window.addEventListener('selectstart', stopDefault);
+		);
+		window.addEventListener('selectstart', stopDefault);
 
 		window.addEventListener("mouseup", () => {
 			window.removeEventListener("mousemove", onMouseMove);
-			this.cursor.style.backgroundColor = ""
+			this.cursor.style.backgroundColor = "";
 			// window.removeEventListener('selectstart', stopDefault);
 		});
 		
@@ -182,10 +190,13 @@ class CommonRightPannel extends HTMLElementHelper {
 					return;	
 				}
 				
-				if (easterEggListHeightObserver.getBoundingClientRect().top <= event.clientY && event.clientY <= easterEggListHeightObserver.getBoundingClientRect().bottom) {
-				easterEggList.scroll(0, easterEggList.scrollTop + event.deltaY * (event.altKey?4:(event.shiftKey?1.5:0.5)))
-				this.cursor.style.top = easterEggList.scrollTop / easterEggList.scrollHeight * (scrollBar.clientHeight) + "px"
-			}
+				if (
+					easterEggListHeightObserver.getBoundingClientRect().top <= event.clientY
+					&& event.clientY <= easterEggListHeightObserver.getBoundingClientRect().bottom
+				) {
+					easterEggList.scroll(0, easterEggList.scrollTop + event.deltaY * (event.altKey?4:(event.shiftKey?1.5:0.5)))
+					this.cursor.style.top = easterEggList.scrollTop / easterEggList.scrollHeight * (scrollBar.clientHeight) + "px"
+				}
 			}
 		);
 		
@@ -195,15 +206,13 @@ class CommonRightPannel extends HTMLElementHelper {
 		new ResizeObserver(
 			(entries) => {
 				this.updateScroll();
-				console.dir(easterEggListHeightObserver)
-				console.log(entries.pop())
 			}
-		).observe(easterEggListHeightObserver ,{ "box": "content-box" })
+		).observe(easterEggListHeightObserver ,{ "box": "content-box" });
 		
 		if (isTouchDevice()) {
 			easterEggListHeightObserver.style.pointerEvents = "auto";
 			easterEggListHeightObserver.classList.remove("no-scroll-bar");
-			scrollBar.style.display = "none"
+			scrollBar.style.display = "none";
 		}
 	}
 	

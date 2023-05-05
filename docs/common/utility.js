@@ -30,7 +30,7 @@ class EventInstance {
     }
     fire(args = {}) {
         for (const func of this.callbacks) {
-            func(args)
+            func(args);
         }
     }
 }
