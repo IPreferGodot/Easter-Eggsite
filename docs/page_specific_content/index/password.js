@@ -1,6 +1,6 @@
 // This script hold the behavior of the password field to grant easter eggs
 
-import { EASTER_EGGS_MANAGER } from "./easter_eggs.js";
+import { EASTER_EGGS_MANAGER } from "./common/easter_eggs.js";
 
 const STRICT_PASSWORDS = {
     // password: easter_egg_id,

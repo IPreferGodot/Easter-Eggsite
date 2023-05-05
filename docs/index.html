@@ -5,12 +5,13 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Easter Eggsite</title>
-		<script src="./common/elements.js" type="module"></script>
 		<style id="prevent-transition">
 			* {
 				transition: none !important;
 			}
-		</style>
+			</style>
+		<link rel="stylesheet" href="./page_specific_content/index/index.css" type="text/css" />
+		<script src="./common/elements.js" type="module"></script>
 		<script>
 			function toggleVisibility(visible = undefined) {
 				const pwdField = document.getElementById("password-field");
@@ -26,7 +27,6 @@
 				img.alt = visible ? "Cacher les charactères" : "Montrer les charactères";
 			}
 		</script>
-		<link rel="stylesheet" href="./index.css" type="text/css" />
 	</head>
 	<body onload="toggleVisibility(false)">
 		<div class="page-container">
