@@ -1,4 +1,4 @@
-import { EventInstance } from "./common/utility.js";
+import { EventInstance } from "./utility.js";
 
 /**
  * Une sauvegarde sous la forme clé/valeur

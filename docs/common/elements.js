@@ -1,4 +1,4 @@
-import { EASTER_EGGS_MANAGER } from "../easter_eggs.js";
+import { EASTER_EGGS_MANAGER } from "../common/easter_eggs.js";
 import { clamp, stopDefault, isTouchDevice } from "./utility.js";
 
 const HTML_TO_LOAD = [
