@@ -41,6 +41,21 @@
     border-color: var(--base-dark);
 }
 
+#submit-pwd.wrong {
+    animation: wrong-pwd 0.2s ease-out;
+}
+
+@keyframes wrong-pwd {
+    /* 0% {color: blue;} */
+    /* 50% {filter: hue-rotate(calc(0deg - 50deg));} */
+    50% {
+        color: red;
+        border-color: red;
+        background-color: rgb(255, 150, 150);
+    /* 100% {color: yellow} */
+    }
+}
+
 .flex-h > * {
     padding: 0.2rem;
     height: 2rem;
