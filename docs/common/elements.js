@@ -233,6 +233,7 @@ class CommonRightPannel extends HTMLElementHelper {
 		}
 		
 		this.cursor.style.height = (list.clientHeight / list.scrollHeight) * scrollBar.clientHeight + "px";
+		this.cursor.style.top = (list.scrollTop / list.scrollHeight) * scrollBar.clientHeight + "px";
 	}
 }
 
