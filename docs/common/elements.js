@@ -210,9 +210,9 @@ class CommonRightPannel extends HTMLElementHelper {
 		).observe(easterEggListHeightObserver ,{ "box": "content-box" });
 		
 		if (isTouchDevice()) {
-			easterEggListHeightObserver.style.pointerEvents = "auto";
-			easterEggListHeightObserver.classList.remove("no-scroll-bar");
-			scrollBar.style.display = "none";
+			easterEggList.style.pointerEvents = "auto";
+			easterEggList.classList.remove("no-scroll-bar");
+			scrollBar.classList.add("disabled");
 		}
 	}
 	
@@ -221,9 +221,9 @@ class CommonRightPannel extends HTMLElementHelper {
 		const scrollBar = this.root.querySelector("#scroll-bar");
 		
 		if (list.scrollHeight == list.clientHeight) {
-			scrollBar.style.display = "none";
+			scrollBar.classList.add("unnecessary-scroll");
 		} else {
-			scrollBar.style.display = "unset";
+			scrollBar.classList.remove("unnecessary-scroll");
 		}
 		
 		const newHeight = (list.clientHeight / list.scrollHeight) * scrollBar.clientHeight;

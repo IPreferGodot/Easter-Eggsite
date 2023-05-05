@@ -38,6 +38,13 @@
     
     margin-left: 1ch;
 }
+#scroll-bar.unnecessary-scroll {
+    display: none;
+}
+#scroll-bar.disabled {
+    display: none;
+}
+
 #scroll-cursor {
     position: relative;
     border-radius: inherit;
