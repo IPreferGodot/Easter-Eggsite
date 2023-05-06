@@ -12,6 +12,7 @@
 			</style>
 		<link rel="stylesheet" href="./page_specific_content/index/index.css" type="text/css" />
 		<script src="./common/elements.js" type="module"></script>
+		<script src="./page_specific_content/index/password.js" type="module"></script>
 		<script>
 			function toggleVisibility(visible = undefined) {
 				const pwdField = document.getElementById("password-field");
@@ -32,6 +33,7 @@
 		<div class="page-container">
 			<common-topbar></common-topbar>
 			<common-right-pannel></common-right-pannel>
+			<common-popup-container></common-popup-container>
 			<main>
 				<div class="flex-h">
 					<button class="rounded-frame" id="visibility-toggle" onclick="toggleVisibility()">
@@ -51,7 +53,6 @@
 	
 	<!-- Loaded in last place -->
 	<script>
-		console.log(document.getElementById("prevent-transition"))
 		document.getElementById("prevent-transition").remove()
 	</script>
 </html>

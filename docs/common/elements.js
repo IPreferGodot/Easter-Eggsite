@@ -1,11 +1,12 @@
 import { EASTER_EGGS_MANAGER } from "../common/easter_eggs.js";
-import { clamp, stopDefault, isTouchDevice } from "./utility.js";
+import { clamp, stopDefault, isTouchDevice, EASTER_EGG_INFOS } from "./utility.js";
 
 const HTML_TO_LOAD = [
     "footer",
     "topbar",
     "right_pannel",
     "easter_egg",
+    "popup_container",
 ];
 
 const INNERS = await HTML_TO_LOAD.reduce(
@@ -28,7 +29,7 @@ class HTMLElementHelper extends HTMLElement {
 	constructor(name) {
 		super();
 		this.root = this.attachShadow({ mode: "open" });
-		let sheets = [...this.root.adoptedStyleSheets, noTranisition]
+		let sheets = [...this.root.adoptedStyleSheets, noTranisition];
 		this.root.adoptedStyleSheets = sheets;
 		this.root.innerHTML = INNERS.get(name);
 		
@@ -38,7 +39,7 @@ class HTMLElementHelper extends HTMLElement {
 				this.root.adoptedStyleSheets = sheets;
 			},
 			3000 // Enough for slow 3G (tested with devtool's throttling)
-		)
+		);
 	}
 }
 
@@ -54,7 +55,6 @@ class CommonTopbar extends HTMLElementHelper {
 	}
 }
 
-const EASTER_EGG_INFOS = ["name", "difficulty", "description", "unlocked"];
 class EasterEgg extends HTMLElementHelper {
 	constructor() {
 		super("easter_egg");
@@ -63,6 +63,8 @@ class EasterEgg extends HTMLElementHelper {
 	static get observedAttributes() {
 		return EASTER_EGG_INFOS;
 	}
+	
+	// Sync EasterEgg instance with tag
 	get name() {
 		return this.getAttribute("name");
 	}
@@ -79,6 +81,12 @@ class EasterEgg extends HTMLElementHelper {
 		return this.getAttribute("description");
 	}
 	set description(newValue) {
+		this.setAttribute("description", newValue);
+	}
+	get unlocked() {
+		return this.getAttribute("description");
+	}
+	set unlocked(newValue) {
 		this.setAttribute("description", newValue);
 	}
 
@@ -119,19 +127,9 @@ class CommonRightPannel extends HTMLElementHelper {
 
 		const easterEggListHeightObserver = this.root.querySelector("#easter-eggs-list .scroll-height-observer");
 		for (const [id, easterEgg] of EASTER_EGGS_MANAGER.easterEggs) {
-			const tag = document.createElement("easter-egg");
+			const tag = easterEgg.buildTag();
 
-			tag.id = id;
-			for (const info of EASTER_EGG_INFOS) {
-				if (info == "unlocked") {
-					const date = easterEgg["unlockedDate"];
-					tag.setAttribute("unlocked", date ? date : "false");
-				} else {
-					tag.setAttribute(info, easterEgg[info]);
-				}
-			}
-
-			easterEgg.onUnlockedDateChanged.bind((event) => {tag.setAttribute("unlocked", event.unlockedDate ? event.unlockedDate : "false")})
+			easterEgg.onUnlockedDateChanged.bind((event) => {tag.setAttribute("unlocked", event.unlockedDate ? event.unlockedDate : "false");});
 			
 			easterEggListHeightObserver.appendChild(tag);
 		}
@@ -146,9 +144,9 @@ class CommonRightPannel extends HTMLElementHelper {
 				pseudoThis.scrollStartCursorY + event.clientY - pseudoThis.scrollStartMouseY,
 				0,
 				easterEggList.clientHeight - pseudoThis.cursor.clientHeight
-				)
-			pseudoThis.cursor.style.top = newCursorPos + "px"
-			easterEggList.scroll(0, easterEggList.scrollHeight * newCursorPos / scrollBar.clientHeight)
+			);
+			pseudoThis.cursor.style.top = newCursorPos + "px";
+			easterEggList.scroll(0, easterEggList.scrollHeight * newCursorPos / scrollBar.clientHeight);
 			// const newScroll = pseudoThis.scrollStartScrollY + event.clientY - pseudoThis.scrollStartMouseY
 			// list.scroll(0, newScroll);
 			// pseudoThis.cursor.style.top = newScroll / list.scrollHeight * (scrollBar.clientHeight - pseudoThis.cursor.clientHeight) + "px"
@@ -160,18 +158,18 @@ class CommonRightPannel extends HTMLElementHelper {
 				window.getSelection().removeAllRanges();
 				this.scrollStartMouseY = event.clientY;
 				this.scrollStartCursorY = this.cursor.offsetTop;
-				console.log('list : ' + easterEggList.clientHeight + " cursor : " + this.cursor.clientHeight)
-				console.log(this.scrollStartCursorY)
-				this.cursor.style.backgroundColor = "var(--grey)"
+				// console.log('list : ' + easterEggList.clientHeight + " cursor : " + this.cursor.clientHeight);
+				// console.log(this.scrollStartCursorY);
+				this.cursor.style.backgroundColor = "var(--grey)";
 				window.addEventListener("mousemove", onMouseMove);
 				// window.addEventListener('selectstart', stopDefault);
 			}
-			);
-			window.addEventListener('selectstart', stopDefault);
+		);
+		window.addEventListener('selectstart', stopDefault);
 
 		window.addEventListener("mouseup", () => {
 			window.removeEventListener("mousemove", onMouseMove);
-			this.cursor.style.backgroundColor = ""
+			this.cursor.style.backgroundColor = "";
 			// window.removeEventListener('selectstart', stopDefault);
 		});
 		
@@ -182,10 +180,13 @@ class CommonRightPannel extends HTMLElementHelper {
 					return;	
 				}
 				
-				if (easterEggListHeightObserver.getBoundingClientRect().top <= event.clientY && event.clientY <= easterEggListHeightObserver.getBoundingClientRect().bottom) {
-				easterEggList.scroll(0, easterEggList.scrollTop + event.deltaY * (event.altKey?4:(event.shiftKey?1.5:0.5)))
-				this.cursor.style.top = easterEggList.scrollTop / easterEggList.scrollHeight * (scrollBar.clientHeight) + "px"
-			}
+				if (
+					easterEggListHeightObserver.getBoundingClientRect().top <= event.clientY
+					&& event.clientY <= easterEggListHeightObserver.getBoundingClientRect().bottom
+				) {
+					easterEggList.scroll(0, easterEggList.scrollTop + event.deltaY * (event.altKey?4:(event.shiftKey?1.5:0.5)))
+					this.cursor.style.top = easterEggList.scrollTop / easterEggList.scrollHeight * (scrollBar.clientHeight) + "px"
+				}
 			}
 		);
 		
@@ -195,15 +196,13 @@ class CommonRightPannel extends HTMLElementHelper {
 		new ResizeObserver(
 			(entries) => {
 				this.updateScroll();
-				console.dir(easterEggListHeightObserver)
-				console.log(entries.pop())
 			}
-		).observe(easterEggListHeightObserver ,{ "box": "content-box" })
+		).observe(easterEggListHeightObserver ,{ "box": "content-box" });
 		
 		if (isTouchDevice()) {
-			easterEggListHeightObserver.style.pointerEvents = "auto";
-			easterEggListHeightObserver.classList.remove("no-scroll-bar");
-			scrollBar.style.display = "none"
+			easterEggList.style.pointerEvents = "auto";
+			easterEggList.classList.remove("no-scroll-bar");
+			scrollBar.classList.add("disabled");
 		}
 	}
 	
@@ -212,9 +211,9 @@ class CommonRightPannel extends HTMLElementHelper {
 		const scrollBar = this.root.querySelector("#scroll-bar");
 		
 		if (list.scrollHeight == list.clientHeight) {
-			scrollBar.style.display = "none";
+			scrollBar.classList.add("unnecessary-scroll");
 		} else {
-			scrollBar.style.display = "unset";
+			scrollBar.classList.remove("unnecessary-scroll");
 		}
 		
 		const newHeight = (list.clientHeight / list.scrollHeight) * scrollBar.clientHeight;
@@ -224,10 +223,36 @@ class CommonRightPannel extends HTMLElementHelper {
 		}
 		
 		this.cursor.style.height = (list.clientHeight / list.scrollHeight) * scrollBar.clientHeight + "px";
+		this.cursor.style.top = (list.scrollTop / list.scrollHeight) * scrollBar.clientHeight + "px";
 	}
 }
+
+class CommonPopupContainer extends HTMLElementHelper {
+	constructor() {
+		super("popup_container");
+		
+		EASTER_EGGS_MANAGER.unlockedEasterEgg.bind(
+			(event) => {
+				const tag = event.easterEgg.buildTag();
+				tag.root.querySelector("#main-container").classList.add("show-desc");
+				tag.addEventListener(
+					"animationend",
+					(event) => {
+						if (event.animationName == "fade-out") {
+							tag.remove();
+						}
+					}
+				);
+				this.root.querySelector("#notification-flex").appendChild(tag);
+				console.log(tag);
+			}
+		)
+	}
+}
+
 
 customElements.define("common-footer", CommonFooter);
 customElements.define("common-topbar", CommonTopbar);
 customElements.define("common-right-pannel", CommonRightPannel);
 customElements.define("easter-egg", EasterEgg);
+customElements.define("common-popup-container", CommonPopupContainer);

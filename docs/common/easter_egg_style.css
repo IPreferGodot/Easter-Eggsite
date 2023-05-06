@@ -137,3 +137,13 @@
 	transition: var(--hover-transition);
 	display: unset;
 }
+
+#visible-desc {
+	display: none;
+}
+#visible-desc .description {
+	margin-top: 0.5em;
+}
+.show-desc #visible-desc {
+	display: unset;
+}

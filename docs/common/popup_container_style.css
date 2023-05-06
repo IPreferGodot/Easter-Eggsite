@@ -1,0 +1,36 @@
+:host {
+    font-size: 0.8em;
+}
+
+#main-container {
+    position: absolute;
+    bottom: 1.5em;
+    right: 1.5em;
+}
+
+#notification-flex {
+    display: flex;
+    flex-flow: column-reverse;
+    gap: 0.7em;
+    align-items: end;
+    
+    padding: 1em;
+}
+
+#notification-flex > * {
+    overflow: hidden;
+    
+    animation: fade-out 0.7s linear 8s forwards;
+}
+
+@keyframes fade-out {
+    50% {
+        opacity: 0%;
+        max-height: 10em; /* Something higher than possible height */
+    }
+    
+    100% {
+        opacity: 0%;
+        max-height: 0;
+    }
+}

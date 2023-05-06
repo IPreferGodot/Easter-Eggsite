@@ -15,14 +15,14 @@ class Save {
 		this.value = localStorage.getItem(key) || value;
 		this.save();
 		
-		this.valueChanged = new EventInstance()
+		this.valueChanged = new EventInstance();
 		
 		window.addEventListener(
 			"storage",
 			(event) => {
 				if (event.key == key) {
 					this._value = localStorage.getItem(key);
-					this.valueChanged.fire({ "newValue":this.value })
+					this.valueChanged.fire({ "newValue":this.value });
 				}
 			}
 		)
@@ -37,7 +37,7 @@ class Save {
 	}
 
 	save() {
-		localStorage.setItem(this.key, this.value)
+		localStorage.setItem(this.key, this.value);
 	}
 }
 
@@ -56,14 +56,14 @@ class SaveManager {
 
 	_addKey(key) {
 		if (key != "keys" && !(key in this.keys)) {
-			this.keys.push(key)
-			this.keysSave.value = this.keys.join(";")
+			this.keys.push(key);
+			this.keysSave.value = this.keys.join(";");
 		}
 	}
 	
 	add(save) {
 		this.saves.set(save.key, save);
-		this._addKey(save.key)
+		this._addKey(save.key);
 	}
 	
 	/**
@@ -84,14 +84,18 @@ class SaveManager {
 		this.get(key).value = value
 	}
 	
-	loadSaves() {
-		console.log("Loading saves :");
+	loadSaves(verbose = false) {
+		if (verbose) {console.log("Loading saves :");}
 		const keys = this.keysSave.value;
 		if (keys == "") {
 			return;
 		}
 		for (const key of keys.split(";")) {
-			console.log(`\t${key} → ${this.get(key).value || "`empty`"}`) // `get()` will load the Save
+			// WARNING loading is triggered by taking `this.get(key).value` with the getter !
+			let value = this.get(key).value;
+			if (verbose) {
+				console.log(`\t${key} → ${this.get(key).value || "`empty`"}`); // `get()` will load the Save
+			}
 		}
 	}
 }

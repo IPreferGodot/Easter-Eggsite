@@ -39,6 +39,14 @@
     color: var(--base-dark);
     background-color: var(--base);
     border-color: var(--base-dark);
+    
+    transition: all 0.1s ease-in-out;
+}
+
+#submit-pwd.wrong {
+    color: red;
+    border-color: red;
+    background-color: rgb(255, 150, 150);
 }
 
 .flex-h > * {
