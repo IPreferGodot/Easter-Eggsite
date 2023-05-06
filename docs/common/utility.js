@@ -1,3 +1,5 @@
+const EASTER_EGG_INFOS = ["name", "difficulty", "description", "unlocked"];
+
 function clamp(num, min, max) {
     return Math.max(Math.min(num, max), min);
 }
@@ -35,4 +37,4 @@ class EventInstance {
     }
 }
 
-export { clamp, stopDefault, isTouchDevice, EventInstance };
+export { EASTER_EGG_INFOS, clamp, stopDefault, isTouchDevice, EventInstance };

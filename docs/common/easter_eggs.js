@@ -1,5 +1,5 @@
 import { SAVE_MANAGER } from "./save_system.js";
-import { EventInstance } from "./utility.js";
+import { EventInstance, EASTER_EGG_INFOS } from "./utility.js";
 
 /**
  * Singleton to manage easter eggs.
@@ -10,6 +10,8 @@ class EasterEggsManager {
 		this.save = SAVE_MANAGER.get("easter-eggs");
 		
 		this.save.valueChanged.bind(() => {this.searchUnlocked()});
+		
+		this.unlockedEasterEgg = new EventInstance()
 	}
 
 	addEasterEgg(easterEgg) {
@@ -83,6 +85,7 @@ class EasterEggsManager {
 				easterEgg.unlockedDate = new Date(parseInt(unlockedDate));
 				if (!FirstLoad && !wasUnlocked) {
 					easterEgg.onUnlock.fire();
+					EASTER_EGGS_MANAGER.unlockedEasterEgg.fire({ "easterEgg": easterEgg });
 				}
 			}
 		}
@@ -149,6 +152,8 @@ class EasterEggsManager {
 			} else {
 				this.save.value += result;
 			}
+			
+			this.unlockedEasterEgg.fire({ "easterEgg": easterEgg })
 		}
 	}
 }
@@ -201,6 +206,26 @@ class EasterEgg {
 		}
 		this.unlockedDate = new Date();
 		return this.id + "@" + this.unlockedDate.getTime();
+	}
+	
+	/**
+	 * Crée une balise pour l'easter egg
+	 * @returns {HTMLElement}
+	 */
+	buildTag() {
+		let tag = document.createElement("easter-egg");
+		
+		tag.id = this.id;
+		for (const info of EASTER_EGG_INFOS) {
+			if (info == "unlocked") {
+				const date = this.unlockedDate;
+				tag.setAttribute("unlocked", date ? date : "false");
+			} else {
+				tag.setAttribute(info, this[info]);
+			}
+		}
+		
+		return tag;
 	}
 }
 

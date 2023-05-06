@@ -1,11 +1,12 @@
 import { EASTER_EGGS_MANAGER } from "../common/easter_eggs.js";
-import { clamp, stopDefault, isTouchDevice } from "./utility.js";
+import { clamp, stopDefault, isTouchDevice, EASTER_EGG_INFOS } from "./utility.js";
 
 const HTML_TO_LOAD = [
     "footer",
     "topbar",
     "right_pannel",
     "easter_egg",
+    "popup_container",
 ];
 
 const INNERS = await HTML_TO_LOAD.reduce(
@@ -54,7 +55,6 @@ class CommonTopbar extends HTMLElementHelper {
 	}
 }
 
-const EASTER_EGG_INFOS = ["name", "difficulty", "description", "unlocked"];
 class EasterEgg extends HTMLElementHelper {
 	constructor() {
 		super("easter_egg");
@@ -127,19 +127,9 @@ class CommonRightPannel extends HTMLElementHelper {
 
 		const easterEggListHeightObserver = this.root.querySelector("#easter-eggs-list .scroll-height-observer");
 		for (const [id, easterEgg] of EASTER_EGGS_MANAGER.easterEggs) {
-			const tag = document.createElement("easter-egg");
+			const tag = easterEgg.buildTag();
 
-			tag.id = id;
-			for (const info of EASTER_EGG_INFOS) {
-				if (info == "unlocked") {
-					const date = easterEgg["unlockedDate"];
-					tag.setAttribute("unlocked", date ? date : "false");
-				} else {
-					tag.setAttribute(info, easterEgg[info]);
-				}
-			}
-
-			easterEgg.onUnlockedDateChanged.bind((event) => {tag.setAttribute("unlocked", event.unlockedDate ? event.unlockedDate : "false")})
+			easterEgg.onUnlockedDateChanged.bind((event) => {tag.setAttribute("unlocked", event.unlockedDate ? event.unlockedDate : "false");});
 			
 			easterEggListHeightObserver.appendChild(tag);
 		}
@@ -237,7 +227,32 @@ class CommonRightPannel extends HTMLElementHelper {
 	}
 }
 
+class CommonPopupContainer extends HTMLElementHelper {
+	constructor() {
+		super("popup_container");
+		
+		EASTER_EGGS_MANAGER.unlockedEasterEgg.bind(
+			(event) => {
+				const tag = event.easterEgg.buildTag();
+				tag.root.querySelector("#main-container").classList.add("show-desc");
+				tag.addEventListener(
+					"animationend",
+					(event) => {
+						if (event.animationName == "fade-out") {
+							tag.remove();
+						}
+					}
+				);
+				this.root.querySelector("#notification-flex").appendChild(tag);
+				console.log(tag);
+			}
+		)
+	}
+}
+
+
 customElements.define("common-footer", CommonFooter);
 customElements.define("common-topbar", CommonTopbar);
 customElements.define("common-right-pannel", CommonRightPannel);
 customElements.define("easter-egg", EasterEgg);
+customElements.define("common-popup-container", CommonPopupContainer);
