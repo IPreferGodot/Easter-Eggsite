@@ -2,6 +2,8 @@
 
 import { EASTER_EGGS_MANAGER } from "../../common/easter_eggs.js";
 
+const BLINK_DURATION = 150
+
 const STRICT_PASSWORDS = {
     // password: easter_egg_id,
     // "un mot de passe": "exempleA",
@@ -33,10 +35,12 @@ function attempt(password) {
     let toUnlock = STRICT_PASSWORDS[password];
     if (toUnlock != undefined) {
         EASTER_EGGS_MANAGER.unlock(toUnlock);
+        return;
     } else {
         toUnlock = NON_CASE_SENSITIVE_PASSWORDS[password.toLowerCase()];
         if (toUnlock != undefined) {
             EASTER_EGGS_MANAGER.unlock(toUnlock);
+            return;
         } else {
             for (const [id, validator] in SPECIAL_PASSWORDS) {
                 if (validator(password)) {
@@ -48,10 +52,15 @@ function attempt(password) {
     }
     
     // Si ça arrive jusque là, c'est que le mot de passe est erroné
-    submitButton.classList.remove("wrong"); // remove to replay animation
-    setTimeout( // Let time to previous statement to take effect
-        () => {submitButton.classList.add("wrong")},
-        0
+    submitButton._lastPress = Date.now()
+    submitButton.classList.add("wrong");
+    setTimeout(
+        () => {
+            if (submitButton._lastPress < Date.now() - BLINK_DURATION) {
+                submitButton.classList.remove("wrong");
+            }
+        },
+        BLINK_DURATION + 1
     );
 };
 
@@ -62,5 +71,14 @@ submitButton.addEventListener(
     "click",
     () => {
         attempt(field.value);
+    }
+)
+
+field.addEventListener(
+    "keyup",
+    (event) => {
+        if (event.key == "Enter") {
+            attempt(field.value);
+        }
     }
 )
