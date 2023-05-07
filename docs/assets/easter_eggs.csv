@@ -9,7 +9,7 @@ girouette,Girouette,Changer [TBD] fois d'avis pour les cookies,0,3EoL
 too_easy,Bien essayé,Tenter un mot de passe facile,0,2EoL
 hidden_chars,À l'aveuglette,Tenter un mot de passe sans avoir activer la visibilité des caractères,0,0EoL
 visible_chars,À découvert,Tenter un mot de passe avec la visibilité des caractères,0,0EoL
-placeholder_pwd,Naïf,"Écrire ""un mot de passe"" puisque le placeholder inque d'""entrer un mot de passe"".",0,4EoL
+placeholder_pwd,Naïf,Entrer le mot de passe «mot de passe»,0,4EoL
 ,Hacker novice,Trouver un mot de passe affiché dans la console,1,1EoL
 ,Hacker amateur,Trouver un mot de passe dans le code HTML de la page,1,2EoL
 ,Hacker pro,Trouver un mot de passe dans les cookies du site,1,3EoL
