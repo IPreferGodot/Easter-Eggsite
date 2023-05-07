@@ -42,8 +42,8 @@ function attempt(password) {
             EASTER_EGGS_MANAGER.unlock(toUnlock);
             return;
         } else {
-            for (const [id, validator] in SPECIAL_PASSWORDS) {
-                if (validator(password)) {
+            for (const id in SPECIAL_PASSWORDS) {
+                if (SPECIAL_PASSWORDS[id](password)) {
                     EASTER_EGGS_MANAGER.unlock(id);
                     return;
                 }
