@@ -36,7 +36,7 @@ class EasterEggsManager {
 				};
 				part = part.slice(1, -1); // On enlève les guillemets
 			};
-			result.push(part.replace("\n", "<br>"));
+			result.push(part.replace("\n", "<br>").replace('""', '"'));
 		}
 		
 		return result;
