@@ -12,10 +12,10 @@ const basicCats = [
     "./assets/detente/cats/tilt.jpg",
 ]
 
-const hitSound = new Audio("../../assets/detente/hit.mp3");
-const bossDeathSound = new Audio("../../assets/detente/boss_death.ogg");
+const hitSound = new Audio("../assets/detente/hit.mp3");
+const bossDeathSound = new Audio("../assets/detente/boss_death.ogg");
 bossDeathSound.volume = 0.5
-const music = new Audio("../../assets/detente/miaou.ogg");
+const music = new Audio("../assets/detente/miaou.ogg");
 music.volume = 0.5
 let musicStarted = false;
 
