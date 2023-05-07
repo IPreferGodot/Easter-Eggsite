@@ -15,10 +15,52 @@ const NON_CASE_SENSITIVE_PASSWORDS = {
     "un mot de passe": "placeholder_pwd"
 };
 
+const EASY_PASSWORDS = [
+    "123456789",
+    "9876543210",
+    "02468",
+    "13579",
+    "azertyuiop^$",
+    "qsdfghjklmù*",
+    "wxcvbn,;:!",
+    "qwertyuiop[]",
+    "asdfghjkl;'#",
+    "zxcvbnm,./",
+    "AZERTYUIOP¨£",
+    "QSDFGHJKLM%µ",
+    "WXCVBN?./§",
+    "QWERTYUIOP[]",
+    "ASDFGHJKL;'#",
+    "ZXCVBNM,./",
+]
+
 // Holds functions that return if a given string should award the easter egg
 const SPECIAL_PASSWORDS = {
     // easter_egg_id: (pwd) => {return true / return false}
     // "exempleC": (pwd) => {return pwd[2] == "z"},
+    "too_easy": (pwd) => {
+        if (pwd.length < 4) {
+            // Maybe implement a "too short" EE instead
+            return false;
+        }
+        
+        // Vérifie si le mot de passe n'a que le même caractère
+        const firstLetter = pwd[1]
+        search: {
+            for (const letter of pwd) {
+                if (letter != firstLetter) {
+                    break search;
+                }
+            }
+            return true;
+        }
+        
+        for (const easy of EASY_PASSWORDS) {
+            if (easy.includes(pwd)) {
+                return true;
+            }
+        }
+    }
 };
 
 
