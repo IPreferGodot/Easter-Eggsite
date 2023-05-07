@@ -244,7 +244,6 @@ class CommonPopupContainer extends HTMLElementHelper {
 					}
 				);
 				this.root.querySelector("#notification-flex").appendChild(tag);
-				console.log(tag);
 			}
 		)
 	}
