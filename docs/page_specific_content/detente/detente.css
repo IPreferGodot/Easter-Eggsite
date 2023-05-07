@@ -1,0 +1,94 @@
+#page-container {
+    background: url("../../assets/detente/landscape.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+#cat-container {
+    overflow: hidden;
+    /* position: absolute;
+    height: 100%;
+    width: 100%; */
+}
+
+.cat {
+    max-width: 10%;
+    height: auto;
+    
+    position: fixed;
+    bottom: 100%;
+    
+    animation: travel 5s linear;
+    
+    transform: translateX(-50%);
+}
+
+@keyframes travel {
+    from {
+        
+    }
+    
+    80% {
+        opacity: 100%;
+    }
+    
+    to {
+        bottom: 0;
+        opacity: 0%;
+    }
+}
+
+
+/* Boss */
+.boss-container {
+    background-color: lightgrey;
+    position: fixed;
+    max-width: 70%;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    
+    display: flex;
+    flex-flow: column;
+    
+    --health: 100%;
+}
+
+.health-bar {
+    content: "zea5r4zer16ze85r4ze5r41";
+    height: 0.5em;
+    width: var(--health);
+    background-color: red;
+}
+
+.dead .health-bar {
+    display: none;
+}
+
+.dead {
+    animation:
+        death 1.5s ease-in-out 0.5s forwards,
+        jiggle 0.05s linear infinite
+    ;
+}
+
+@keyframes jiggle {
+    25% {
+        rotate: 5deg;
+    }
+    75% {
+        rotate: -5deg;
+    }
+}
+
+@keyframes death {
+    80% {
+        filter: brightness(100);
+        scale: 1;
+        opacity: 100%;
+    }
+
+    to {
+        scale: 5;
+        opacity: 0%;
+    }
+}

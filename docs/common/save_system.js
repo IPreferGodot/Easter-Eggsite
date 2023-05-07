@@ -61,9 +61,30 @@ class SaveManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param {Save} save The save added to th SaveManager
+	 */
 	add(save) {
 		this.saves.set(save.key, save);
 		this._addKey(save.key);
+	}
+	
+	/**
+	 * Create a save if none exists for this key
+	 * 
+	 * @param {string} key The key of the save
+	 * @param {string} defaultValue The default value used if there is nothing saved
+	 * 
+	 * @returns {Save}
+	 */
+	create(key, defaultValue) {
+		let save = this.saves.get(key);
+		if (!save) {
+			save = new Save(key, defaultValue);
+			this.add(save);
+		}
+		return save;
 	}
 	
 	/**
