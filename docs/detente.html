@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Espace détente</title>
+		<style id="prevent-transition">
+			* {
+				transition: none !important;
+			}
+		</style>
+		<link rel="stylesheet" href="./common/style.css" type="text/css" />
+		<link rel="stylesheet" href="./page_specific_content/detente/detente.css" type="text/css" />
+		<script src="./common/elements.js" type="module"></script>
+		<script src="./page_specific_content/detente/cats.js" type="module"></script>
+	</head>
+	<body>
+		<div id="page-container">
+			<common-topbar></common-topbar>
+			<common-right-pannel></common-right-pannel>
+			<common-popup-container></common-popup-container>
+			<main>
+                <div id="cat-container"></div>
+			</main>
+			<common-footer></common-footer>
+		</div>
+	</body>
+	
+	<!-- Loaded in last place -->
+	<script>
+		document.getElementById("prevent-transition").remove()
+	</script>
+</html>

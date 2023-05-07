@@ -11,6 +11,6 @@ with open("raw_assets/easter_eggs.csv", "r", encoding="utf-8", newline='') as fi
             line += NEW_EOL
         new_text += line
     
-with open("docs/easter_eggs.csv", "w", encoding="utf-8", newline='') as file:
+with open("docs/assets/easter_eggs.csv", "w", encoding="utf-8", newline='') as file:
     print(repr(new_text))
     file.write(new_text)
