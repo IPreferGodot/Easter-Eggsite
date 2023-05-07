@@ -73,20 +73,25 @@ for (const password in NON_CASE_SENSITIVE_PASSWORDS) {
 
 const submitButton = document.getElementById("submit-pwd")
 
+function success(easterEggID) {
+    EASTER_EGGS_MANAGER.unlock(easterEggID);
+    field.value = "";
+}
+
 function attempt(password) {
     let toUnlock = STRICT_PASSWORDS[password];
     if (toUnlock != undefined) {
-        EASTER_EGGS_MANAGER.unlock(toUnlock);
+        success(toUnlock);
         return;
     } else {
         toUnlock = NON_CASE_SENSITIVE_PASSWORDS[password.toLowerCase()];
         if (toUnlock != undefined) {
-            EASTER_EGGS_MANAGER.unlock(toUnlock);
+            success(toUnlock);
             return;
         } else {
             for (const id in SPECIAL_PASSWORDS) {
                 if (SPECIAL_PASSWORDS[id](password)) {
-                    EASTER_EGGS_MANAGER.unlock(id);
+                    success(id);
                     return;
                 }
             }
