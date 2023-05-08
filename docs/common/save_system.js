@@ -28,9 +28,15 @@ class Save {
 		)
 	}
 
+	/**
+	 * @returns {string}
+	 */
 	get value() {
 		return this._value;
 	}
+	/**
+	 * @param {string} new_value
+	 */
 	set value(new_value) {
 		this._value = new_value;
 		this.save();

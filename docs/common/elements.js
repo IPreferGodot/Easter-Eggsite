@@ -55,7 +55,7 @@ class CommonTopbar extends HTMLElementHelper {
 	}
 }
 
-class EasterEgg extends HTMLElementHelper {
+class EasterEggTag extends HTMLElementHelper {
 	constructor() {
 		super("easter_egg");
 	}
@@ -204,6 +204,80 @@ class CommonRightPannel extends HTMLElementHelper {
 			easterEggList.classList.remove("no-scroll-bar");
 			scrollBar.classList.add("disabled");
 		}
+		
+		
+		// Open button
+		this.checkUnlocked();
+		const mainContainer = this.root.querySelector("#main-container")
+		
+		const bourrinArray = [];
+		let bourrinAnimPlaying = false;
+		
+		window.tryBourrin = () => {
+			if (!bourrinAnimPlaying) {
+				bourrinAnimPlaying = true;
+				console.log("BOURRIN");
+				mainContainer.classList.add("bourrin");
+				setTimeout(
+					() => {
+						mainContainer.classList.remove("bourrin");
+						bourrinAnimPlaying = false;
+					},
+					5000
+				)
+			}
+		}
+		
+		window.addEventListener(
+			"keydown",
+			(event) => {
+				if (event.key == "ArrowLeft") {
+					EASTER_EGGS_MANAGER.unlock("fleche");
+					this.checkUnlocked();
+					mainContainer.classList.add("open");
+					
+					const time = Date.now();
+					const removeBefore = time - 2500;
+					for (const elemTime of bourrinArray) {
+						if (removeBefore < elemTime) {
+							break;
+						}
+						bourrinArray.shift();
+					}
+					bourrinArray.push(time);
+					if (bourrinArray.length > 1) {
+						EASTER_EGGS_MANAGER.unlock("bourrin");
+						window.tryBourrin();
+					}
+				} else if (event.key == "ArrowRight") {
+					mainContainer.classList.remove("open");
+				}
+			}
+		)
+		
+		this.root.querySelector("#open-pannel").addEventListener(
+			"click",
+			() => {
+				if (this.functionnal) {
+					mainContainer.classList.toggle('open');
+				}
+			}
+		)
+		
+		if (isTouchDevice()) {
+			EASTER_EGGS_MANAGER.get("fleche").onUnlock.bind(() => {mainContainer.classList.add("open");})
+		}
+	}
+	
+	checkUnlocked() {
+		if (EASTER_EGGS_MANAGER.isUnlocked("fleche")) {
+			this.functionnal = true;
+			this.root.querySelector("#main-container").classList.add("functionnal");
+		} else {
+			this.functionnal = false;
+			this.root.querySelector("#main-container").classList.remove("functionnal");
+			this.root.querySelector("#main-container").classList.remove("open");
+		}
 	}
 	
 	updateScroll() {
@@ -253,5 +327,5 @@ class CommonPopupContainer extends HTMLElementHelper {
 customElements.define("common-footer", CommonFooter);
 customElements.define("common-topbar", CommonTopbar);
 customElements.define("common-right-pannel", CommonRightPannel);
-customElements.define("easter-egg", EasterEgg);
+customElements.define("easter-egg", EasterEggTag);
 customElements.define("common-popup-container", CommonPopupContainer);
