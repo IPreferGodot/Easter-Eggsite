@@ -7,6 +7,7 @@ const HTML_TO_LOAD = [
     "right_pannel",
     "easter_egg",
     "popup_container",
+	"cookies",
 ];
 
 const INNERS = await HTML_TO_LOAD.reduce(
@@ -40,6 +41,59 @@ class HTMLElementHelper extends HTMLElement {
 			},
 			3000 // Enough for slow 3G (tested with devtool's throttling)
 		);
+	}
+}
+
+class CommonCookies extends HTMLElementHelper {
+	constructor() {
+		super("cookies");
+		window.onload = function() {
+			var popup = document.querySelector('.popup');
+			var overlay = document.querySelector('.overlay');
+			if (!getCookie('cookie_consent')) {
+				popup.style.display = 'block';
+				overlay.style.display = 'block';
+			}
+		}
+
+		function showConfirmDialog(action) {
+			if (confirm('Tes sûre de vouloir ' + action + ' les cookies?')) {
+				if (action === 'accept') {
+					setCookie('cookie_consent', 'true', 30);
+				} else if (action === 'reject') {
+					setCookie('cookie_consent', 'false', 30);
+				}
+				closePopup();
+			}
+		}
+		function closePopup() {
+			var popup = document.querySelector('.popup');
+			var overlay = document.querySelector('.overlay');
+			popup.style.display = 'none';
+			overlay.style.display = 'none';
+		}
+
+		function setCookie(name, value, days) {
+			var expires = '';
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+				expires = '; expires=' + date.toUTCString();
+			}
+			document.cookie = name + '=' + value + expires + '; path=/';
+		}
+
+		function getCookie(name) {
+            var cookies = document.cookie.split('; ');
+            for (var i = 0; i < cookies.length; i++) {
+                var parts = cookies[i].split('=');
+                if (decodeURIComponent(parts[0]) === name) {
+                    return decodeURIComponent(parts[1]);
+                }
+            }
+            return null;
+}
+		this.root.querySelector("#jesaispasoulemettre")
 	}
 }
 
@@ -332,3 +386,4 @@ customElements.define("common-topbar", CommonTopbar);
 customElements.define("common-right-pannel", CommonRightPannel);
 customElements.define("easter-egg", EasterEggTag);
 customElements.define("common-popup-container", CommonPopupContainer);
+customElements.define("common-cookies", CommonCookies);
