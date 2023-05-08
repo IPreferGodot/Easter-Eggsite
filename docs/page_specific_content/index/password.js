@@ -96,8 +96,8 @@ if (isTouchDevice()) {
             break;
         }
         if (count >= 6) {
-            EASTER_EGGS_MANAGER.unlock("bourrin");
             window.tryBourrin();
+            return true;
         }
     }
 }

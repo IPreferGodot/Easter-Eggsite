@@ -245,7 +245,7 @@ class CommonRightPannel extends HTMLElementHelper {
 						bourrinArray.shift();
 					}
 					bourrinArray.push(time);
-					if (bourrinArray.length > 1) {
+					if (bourrinArray.length > 10) {
 						EASTER_EGGS_MANAGER.unlock("bourrin");
 						window.tryBourrin();
 					}
