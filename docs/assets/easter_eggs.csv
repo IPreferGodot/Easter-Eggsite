@@ -39,4 +39,5 @@ explorer,Explorateur,Visiter toutes les pages du site,0,3,0EoL
 lost,Perdu,Changer 5 fois de pages en 15 secondes,0,4,0EoL
 debug,Zone interdite,Débloqué sur la page de déboggage,0,4,1EoL
 last_point,Point final,"Cliquer sur le point final dans la page ""À propos""",0,9,1EoL
-empty_password,On ne peut pas l'oublier,Ne pas entrer de mot de passe et valider,0,1,1
+empty_password,On ne peut pas l'oublier,Ne pas entrer de mot de passe et valider,0,1,1EoL
+404,"C'est une méprise, il y a erreur",Aller sur la page de l'erreur 404,0,4,1
