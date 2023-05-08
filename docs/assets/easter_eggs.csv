@@ -6,7 +6,7 @@ miam,Miam miam,Accepter les cookies,0,0,0EoL
 hungry,Affamé,Refuser les cookies,0,0,0EoL
 smart,Intelligent,Changer d'avis sur les cookies,0,1,0EoL
 girouette,Girouette,Changer [TBD] fois d'avis pour les cookies,0,3,0EoL
-too_easy,Bien essayé,Tenter un mot de passe facile,0,2,0EoL
+too_easy,Bien essayé,Tenter un mot de passe facile,0,2,1EoL
 hidden_chars,À l'aveuglette,Tenter un mot de passe sans avoir activer la visibilité des caractères,0,0,0EoL
 visible_chars,À découvert,Tenter un mot de passe avec la visibilité des caractères,0,0,0EoL
 placeholder_pwd,Naïf,Entrer le mot de passe «mot de passe»,0,4,1EoL
@@ -37,4 +37,5 @@ boss_killer_3,Ascension sociale,Tuer 3 boss,0,8,1EoL
 asleep,Euh... Vous dormez ?,Rester 5 minutes sur la page détente sans rien faire,0,5,0EoL
 explorer,Explorateur,Visiter toutes les pages du site,0,3,0EoL
 lost,Perdu,Changer 5 fois de pages en 15 secondes,0,4,0EoL
-debug,Zone interdite,Débloqué sur la page de déboggage,0,4,1
+debug,Zone interdite,Débloqué sur la page de déboggage,0,4,1EoL
+last_point,Point final,"Cliquer sur le point final dans la page ""À propos""",0,9,1

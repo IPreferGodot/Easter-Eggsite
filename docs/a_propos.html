@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>À propos</title>
+		<style id="prevent-transition">
+			* {
+				transition: none !important;
+			}
+		</style>
+		<!-- <link rel="stylesheet" href="./page_specific_content/a_propos/a_propos.css" type="text/css" /> -->
+		<script src="./common/elements.js" type="module"></script>
+		
+		<link rel="stylesheet" href="./common/style.css" type="text/css" />
+	</head>
+	<body>
+		<div id="page-container">
+			<common-topbar></common-topbar>
+			<common-right-pannel></common-right-pannel>
+			<common-popup-container></common-popup-container>
+			<main>
+				<p>
+					Ce site est un petit projet fait dans le cadre des cours de NSI
+					<br>
+					Vous y trouverez plusieurs easter eggs (littéralement : "oeufs de pâques"),
+					c'est à dire des secrets laissés par les développeurs<span onclick="unlock('last_point')">.</span>
+				</p>
+			</main>
+			<common-footer></common-footer>
+		</div>
+	</body>
+	
+	<!-- Loaded in last place -->
+	<script>
+		document.getElementById("prevent-transition").remove()
+	</script>
+</html>
