@@ -49,6 +49,15 @@
     background-color: rgb(255, 150, 150);
 }
 
+#forgot-pwd {
+    font-size: 0.6em;
+    width: fit-content;
+    margin: 1rem auto;
+}
+#forgot-pwd:hover {
+    text-decoration: underline;
+}
+
 .flex-h > * {
     padding: 0.2rem;
     height: 2rem;
