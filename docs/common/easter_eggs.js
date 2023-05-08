@@ -30,7 +30,7 @@ class EasterEggsManager {
 		for (let i = 0; i < parts.length; i++) {
 			let part = parts[i];
 			if (part.startsWith('"')) {
-				while (!part.endsWith('"')) {
+				while (((!part.endsWith('"')) || part.endsWith('""')) && !part.endsWith('"""')) {
 					i++;
 					part += parts[i];
 				};
