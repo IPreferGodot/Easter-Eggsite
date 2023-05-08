@@ -55,3 +55,7 @@ footer {
 .copyright a:visited {
     color: inherit;
 }
+
+.masked.masked.masked {
+    color: var(--black);
+}

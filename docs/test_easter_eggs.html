@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Déboggage et test</title>
     <script src="./common/easter_eggs.js" type="module"></script>
+    <script src="./common/elements.js" type="module"></script>
+    
+	<link rel="stylesheet" href="./common/style.css" type="text/css" />
 </head>
 <body>
-    <button onclick="unlock('spaming')">Unlock spaming</button>
-    <button onclick="unlock('semi_marathon')">Unlock semi_marathon</button>
-    <p>
-        <button onclick="EASTER_EGGS_MANAGER.disUnlock(document.getElementById('ununlock-field').value)" id="ununlock">Unulock</button> <input type="text" id="ununlock-field" placeholder="Entrez l'id de l'EE à 'dédébloquer'." />
-    </p>
+    <div id="page-container">
+        <common-topbar></common-topbar>
+        <common-right-pannel></common-right-pannel>
+        <common-popup-container></common-popup-container>
+        <main>
+            <p>Page destinée au débogage et au test du site, si vous êtes tombé la dessus, allez vous-en.</p>
+            <button onclick="unlock('debug')">Débloquer l'easter egg "debug"</button>
+            <p>
+                <button onclick="EASTER_EGGS_MANAGER.disUnlock(document.getElementById('ununlock-field').value)" id="ununlock">Dédébloquer</button> <input type="text" id="ununlock-field" placeholder="ID de l'EE à 'dédébloquer'." /> (Peut nécessiter un rafraichissement)
+            </p>
+        </main>
+		<common-footer></common-footer>
+    </div>
 </body>
 </html>

@@ -36,4 +36,5 @@ boss_killer_3,Ascension sociale,Tuer 3 boss,0,8,1EoL
 ,Ça fait du bien aux oreilles,Couper le son du site sur la page détente,0,7,0EoL
 asleep,Euh... Vous dormez ?,Rester 5 minutes sur la page détente sans rien faire,0,5,0EoL
 explorer,Explorateur,Visiter toutes les pages du site,0,3,0EoL
-lost,Perdu,Changer 5 fois de pages en 15 secondes,0,4,0
+lost,Perdu,Changer 5 fois de pages en 15 secondes,0,4,0EoL
+debug,Zone interdite,Débloqué sur la page de déboggage,0,4,1
