@@ -25,7 +25,7 @@ Le bouton ""CGU"" ne fera rien.",0,3,0EoL
 http_400,HTTP 400,Cliquer-glisser le faux bouton CGU sur le champ de texte du mot de passe,0,8,0EoL
 footer,Fan de foot,Atteindre le footer en bas de page,0,0,0EoL
 mute,Censure par baillonement,Couper le son du site (documentation),0,7,0EoL
-forgot_password,Tête en l'air,"Cliquer sur ""mot de passe oublié""",0,0,0EoL
+forgot_password,Tête en l'air,"Cliquer sur ""mot de passe oublié""",0,0,1EoL
 no_internet,Je passe sous un tunnel,Ouvrir la page sans connexion (documentation),0,8,0EoL
 cat_killer_1,😯,Tuer un chat,0,1,1EoL
 cat_killer_10,😲,Tuer 10 chats,0,2,1EoL
