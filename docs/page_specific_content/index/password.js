@@ -117,6 +117,18 @@ function success(easterEggID) {
 }
 
 function attempt(password) {
+    // Special EE code about char visibility
+    if (password.length == 0) {
+        EASTER_EGGS_MANAGER.unlock("empty_password");
+    } else {
+        if (field.getAttribute("type") == "text") {
+            EASTER_EGGS_MANAGER.unlock("visible_chars");
+        } else {
+            EASTER_EGGS_MANAGER.unlock("hidden_chars");
+        }
+    }
+    
+    // Check if it validate anything
     let toUnlock = STRICT_PASSWORDS[password];
     if (toUnlock != undefined) {
         success(toUnlock);
@@ -150,14 +162,14 @@ function attempt(password) {
 };
 
 
-const field = document.getElementById("password-field")
+const field = document.getElementById("password-field");
 
 submitButton.addEventListener(
     "click",
     () => {
         attempt(field.value);
     }
-)
+);
 
 field.addEventListener(
     "keyup",
@@ -166,4 +178,4 @@ field.addEventListener(
             attempt(field.value);
         }
     }
-)
+);
