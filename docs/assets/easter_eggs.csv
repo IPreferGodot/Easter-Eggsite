@@ -1,37 +1,39 @@
-id,name,description,hidden,difficultyEoL
-spaming,Pro du CPS,Spammer le bouton de connection,0,2EoL
-semi_marathon,Semi marathon,"Scroller [TBD, 21 000 ?] px",0,2EoL
-page_title,Titre honorifique,Mot de passe caché loin dans le titre de la page,0,5EoL
-miam,Miam miam,Accepter les cookies,0,0EoL
-hungry,Affamé,Refuser les cookies,0,0EoL
-smart,Intelligent,Changer d'avis sur les cookies,0,1EoL
-girouette,Girouette,Changer [TBD] fois d'avis pour les cookies,0,3EoL
-too_easy,Bien essayé,Tenter un mot de passe facile,0,2EoL
-hidden_chars,À l'aveuglette,Tenter un mot de passe sans avoir activer la visibilité des caractères,0,0EoL
-visible_chars,À découvert,Tenter un mot de passe avec la visibilité des caractères,0,0EoL
-placeholder_pwd,Naïf,Entrer le mot de passe «mot de passe»,0,4EoL
-,Hacker novice,Trouver un mot de passe affiché dans la console,1,1EoL
-,Hacker amateur,Trouver un mot de passe dans le code HTML de la page,1,2EoL
-,Hacker pro,Trouver un mot de passe dans les cookies du site,1,3EoL
-re,Re !,Revenir sur la page après l'avoir fermée,0,0EoL
-daily_check,Routine,Revenir tous les jours sur la page pendant une semaine,0,10EoL
-gatcha,Gatcha,Revenir sur la page tous les jours pendant un mois (4 jours manqués autorisés ?),1,10EoL
+id,name,description,hidden,difficulty,implementedEoL
+spaming,Pro du CPS,Spammer le bouton de connection,0,2,0EoL
+semi_marathon,Semi marathon,"Scroller [TBD, 21 000 ?] px",0,2,0EoL
+page_title,Titre honorifique,Mot de passe caché loin dans le titre de la page,0,5,0EoL
+miam,Miam miam,Accepter les cookies,0,0,0EoL
+hungry,Affamé,Refuser les cookies,0,0,0EoL
+smart,Intelligent,Changer d'avis sur les cookies,0,1,0EoL
+girouette,Girouette,Changer [TBD] fois d'avis pour les cookies,0,3,0EoL
+too_easy,Bien essayé,Tenter un mot de passe facile,0,2,0EoL
+hidden_chars,À l'aveuglette,Tenter un mot de passe sans avoir activer la visibilité des caractères,0,0,0EoL
+visible_chars,À découvert,Tenter un mot de passe avec la visibilité des caractères,0,0,0EoL
+placeholder_pwd,Naïf,Entrer le mot de passe «mot de passe»,0,4,1EoL
+,Hacker novice,Trouver un mot de passe affiché dans la console,1,1,0EoL
+,Hacker amateur,Trouver un mot de passe dans le code HTML de la page,1,2,0EoL
+,Hacker pro,Trouver un mot de passe dans les cookies du site,1,3,0EoL
+re,Re !,Revenir sur la page après l'avoir fermée,0,0,0EoL
+daily_check,Routine,Revenir tous les jours sur la page pendant une semaine,0,10,0EoL
+gatcha,Gatcha,Revenir sur la page tous les jours pendant un mois (4 jours manqués autorisés ?),1,10,0EoL
 fleche,Flèche !,"Appuyer sur la flèche gauche, mais sur le clavier.
-(Écran tactile : entrer un mot de passe ressamblant à une flèche vers la gauche)",0,2EoL
+(Écran tactile : entrer un mot de passe ressamblant à une flèche vers la gauche)",0,2,1EoL
 bourrin,Bourrin,"Spammer la flèche gauche du clavier.
-(Écran tactile : entrer en mot de passe une suite de flèches vers la gauche)",0,4EoL
+(Écran tactile : entrer en mot de passe une suite de flèches vers la gauche)",0,4,1EoL
 cgu_button,Au pied de la lettre,"Cliquer sur ""le bouton"" plutôt que de cliquer sur le bouton pour ouvrir les CGU.
-Le bouton ""CGU"" ne fera rien.",0,3EoL
-http_400,HTTP 400,Cliquer-glisser le faux bouton CGU sur le champ de texte du mot de passe,0,8EoL
-footer,Fan de foot,Atteindre le footer en bas de page,0,0EoL
-mute,Censure par baillonement,Couper le son du site (documentation),0,7EoL
-forgot_password,Tête en l'air,"Cliquer sur ""mot de passe oublié""",0,0EoL
-no_internet,Je passe sous un tunnel,Ouvrir la page sans connexion (documentation),0,8EoL
-cat_killer_1,😯,Tuer un chat,0,1EoL
-cat_killer_10,😲,Tuer 10 chats,0,2EoL
-cat_killer_50,😨,Tuer 50 chats,0,4EoL
-cat_killer_100,😱,Tuer 100 chats,0,6EoL
-,Ça fait du bien aux oreilles,Couper le son du site sur la page détente,0,7EoL
-asleep,Euh... Vous dormez ?,Rester 5 minutes sur la page détente sans rien faire,0,5EoL
-explorer,Explorateur,Visiter toutes les pages du site,0,3EoL
-lost,Perdu,Changer 5 fois de pages en 15 secondes,0,4
+Le bouton ""CGU"" ne fera rien.",0,3,0EoL
+http_400,HTTP 400,Cliquer-glisser le faux bouton CGU sur le champ de texte du mot de passe,0,8,0EoL
+footer,Fan de foot,Atteindre le footer en bas de page,0,0,0EoL
+mute,Censure par baillonement,Couper le son du site (documentation),0,7,0EoL
+forgot_password,Tête en l'air,"Cliquer sur ""mot de passe oublié""",0,0,0EoL
+no_internet,Je passe sous un tunnel,Ouvrir la page sans connexion (documentation),0,8,0EoL
+cat_killer_1,😯,Tuer un chat,0,1,1EoL
+cat_killer_10,😲,Tuer 10 chats,0,2,1EoL
+cat_killer_50,😨,Tuer 50 chats,0,4,1EoL
+cat_killer_100,😱,Tuer 100 chats,0,6,1EoL
+boss_killer_1,C'est qui le patron ?,Tuer un boss,0,3,1EoL
+boss_killer_3,Ascension sociale,Tuer 3 boss,0,8,1EoL
+,Ça fait du bien aux oreilles,Couper le son du site sur la page détente,0,7,0EoL
+asleep,Euh... Vous dormez ?,Rester 5 minutes sur la page détente sans rien faire,0,5,0EoL
+explorer,Explorateur,Visiter toutes les pages du site,0,3,0EoL
+lost,Perdu,Changer 5 fois de pages en 15 secondes,0,4,0

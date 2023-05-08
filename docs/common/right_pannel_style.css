@@ -170,3 +170,16 @@
 .bourrin.bourrin #right-pannel {
     translate: -100%;
 }
+
+
+/* Show or hide EE */
+easter-egg[_hidden="true"] {
+	display: none;
+}
+easter-egg[_hidden="true"][unlocked="true"] {
+	display: unset;
+}
+easter-egg[implemented="false"],
+easter-egg[_hidden="true"][unlocked="true"][implemented="false"] { /* On n'est pas sensés pouvoir débloquer un EE non implémenté, mais on ne sait jamais */
+	display: none;
+}

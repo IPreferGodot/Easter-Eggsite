@@ -30,13 +30,13 @@ const killCount = {
     },
     set cat(newValue) {
         catSave.value = String(newValue);
-        if (newValue > 1) {
+        if (newValue >= 1) {
             EASTER_EGGS_MANAGER.unlock("cat_killer_1");
-            if (newValue > 10) {
+            if (newValue >= 10) {
                 EASTER_EGGS_MANAGER.unlock("cat_killer_10");
-                if (newValue > 50) {
+                if (newValue >= 50) {
                     EASTER_EGGS_MANAGER.unlock("cat_killer_50");
-                    if (newValue > 100) {
+                    if (newValue >= 100) {
                         EASTER_EGGS_MANAGER.unlock("cat_killer_100");
                     }
                 }
@@ -48,6 +48,12 @@ const killCount = {
     },
     set boss(newValue) {
         bossSave.value = String(newValue);
+        if (newValue >= 1) {
+            EASTER_EGGS_MANAGER.unlock("boss_killer_1");
+            if (newValue >= 3) {
+                EASTER_EGGS_MANAGER.unlock("boss_killer_3");
+            }
+        }
     }
 }
 

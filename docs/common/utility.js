@@ -1,4 +1,4 @@
-const EASTER_EGG_INFOS = ["name", "difficulty", "description", "unlocked"];
+const EASTER_EGG_INFOS = ["name", "difficulty", "description", "unlocked", "hidden", "implemented"];
 
 function clamp(num, min, max) {
     return Math.max(Math.min(num, max), min);
