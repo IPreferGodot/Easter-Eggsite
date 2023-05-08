@@ -30,7 +30,7 @@ class EasterEggsManager {
 		for (let i = 0; i < parts.length; i++) {
 			let part = parts[i];
 			if (part.startsWith('"')) {
-				while (!part.endsWith('"')) {
+				while (((!part.endsWith('"')) || part.endsWith('""')) && !part.endsWith('"""')) {
 					i++;
 					part += parts[i];
 				};
@@ -156,6 +156,60 @@ class EasterEggsManager {
 			this.unlockedEasterEgg.fire({ "easterEgg": easterEgg })
 		}
 	}
+	
+	/**
+	 * @param {string} id
+	 * @returns {boolean}
+	 */
+	isUnlocked(id) {
+		let easterEgg = this.easterEggs.get(id);
+		if (!easterEgg) {
+			console.warn(
+				`Tried to ask if an inexistent easter egg is unlocked (id : "${id}").`
+			);
+			return false;
+		}
+		return Boolean(easterEgg.unlockedDate);
+	}
+	
+	/**
+	 * 
+	 * @param {string} id 
+	 */
+	disUnlock(id) {
+		let easterEgg = this.easterEggs.get(id);
+		if (!easterEgg) {
+			console.warn(
+				`Tried to disunlock easter egg with id "${id}".`
+			);
+			return;
+		}
+		easterEgg.unlockedDate = false;
+		
+		const split = this.save.value.split("|");
+		for (const [i, value] of split.entries()) {
+			if (value.split("@")[0] == id) {
+				split.splice(i, 1);
+				break;
+			}
+		}
+		this.save.value = split.join("|");
+	}
+	
+	/**
+	 * Cherche l'easter egg correspondant à l'id
+	 * @param {string} id
+	 * @returns {EasterEgg}
+	 */
+	get(id) {
+		let easterEgg = this.easterEggs.get(id);
+		if (!easterEgg) {
+			console.error(
+				`Inexistant easter egg with id "${id}".`
+			);
+		}
+		return easterEgg;
+	}
 }
 const EASTER_EGGS_MANAGER = new EasterEggsManager();
 
@@ -205,6 +259,7 @@ class EasterEgg {
 			return false;
 		}
 		this.unlockedDate = new Date();
+		this.onUnlock.fire()
 		return this.id + "@" + this.unlockedDate.getTime();
 	}
 	
@@ -234,5 +289,6 @@ await EASTER_EGGS_MANAGER.loadEasterEggs();
 
 // On rend disponible le gestionnaire d'easter egg
 window.unlock = (id) => EASTER_EGGS_MANAGER.unlock(id); // Bad pratice, should find something better.
+window.EASTER_EGGS_MANAGER = EASTER_EGGS_MANAGER; // Bad pratice, should find something better.
 
 export { EASTER_EGGS_MANAGER };

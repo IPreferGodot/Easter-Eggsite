@@ -1,18 +1,21 @@
 // This script hold the behavior of the password field to grant easter eggs
 
 import { EASTER_EGGS_MANAGER } from "../../common/easter_eggs.js";
+import { isTouchDevice } from "../../common/utility.js";
 
-const BLINK_DURATION = 150
+const BLINK_DURATION = 150;
 
 const STRICT_PASSWORDS = {
     // password: easter_egg_id,
     // "un mot de passe": "exempleA",
     
 };
+
+
 const NON_CASE_SENSITIVE_PASSWORDS = {
     // pAsSWoRd: easter_egg_id,
     // "uN mOt dE pASse": "exempleB",
-    "un mot de passe": "placeholder_pwd"
+    "un mot de passe": "placeholder_pwd",
 };
 
 const EASY_PASSWORDS = [
@@ -64,6 +67,41 @@ const SPECIAL_PASSWORDS = {
 };
 
 
+if (isTouchDevice()) {
+    const arrowPasswords = [
+        "<-",
+        "<--",
+        "<==",
+        "<=",
+        "←",
+        "↤",
+        "⬅",
+    ];
+    
+    for (const pwd of arrowPasswords) {
+        STRICT_PASSWORDS[pwd] = "fleche";
+    }
+    
+    SPECIAL_PASSWORDS.bourrin = (pwd) => {
+        let count = 0
+        
+        mainLoop: while (pwd) {
+            for (const arrow of arrowPasswords) {
+                if (pwd.startsWith(arrow)) {
+                    pwd = pwd.slice(arrow.length);
+                    count += 1;
+                    continue mainLoop;
+                }
+            }
+            break;
+        }
+        if (count >= 6) {
+            window.tryBourrin();
+            return true;
+        }
+    }
+}
+
 // Format to lower case every non case sensitive password
 for (const password in NON_CASE_SENSITIVE_PASSWORDS) {
     const id = NON_CASE_SENSITIVE_PASSWORDS[password];
@@ -73,20 +111,25 @@ for (const password in NON_CASE_SENSITIVE_PASSWORDS) {
 
 const submitButton = document.getElementById("submit-pwd")
 
+function success(easterEggID) {
+    EASTER_EGGS_MANAGER.unlock(easterEggID);
+    field.value = "";
+}
+
 function attempt(password) {
     let toUnlock = STRICT_PASSWORDS[password];
     if (toUnlock != undefined) {
-        EASTER_EGGS_MANAGER.unlock(toUnlock);
+        success(toUnlock);
         return;
     } else {
         toUnlock = NON_CASE_SENSITIVE_PASSWORDS[password.toLowerCase()];
         if (toUnlock != undefined) {
-            EASTER_EGGS_MANAGER.unlock(toUnlock);
+            success(toUnlock);
             return;
         } else {
             for (const id in SPECIAL_PASSWORDS) {
                 if (SPECIAL_PASSWORDS[id](password)) {
-                    EASTER_EGGS_MANAGER.unlock(id);
+                    success(id);
                     return;
                 }
             }
