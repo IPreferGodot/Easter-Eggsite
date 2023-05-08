@@ -122,7 +122,7 @@ class EasterEggsManager {
 	 */
 	async loadEasterEggs() {
 		const easterEggsData = await fetch("./assets/easter_eggs.csv").then((response) => response.text());
-		let lines = easterEggsData.split("EoL\n"); // On split sur les fins de ligne personnalisées, mais par sur les fin de ligne dans les cellules
+		let lines = easterEggsData.split("EoL"); // On split sur les fins de ligne personnalisées, mais par sur les fin de ligne dans les cellules
 		
 		// Plus nécessaire depuis le pré-traitement du fichier
 		// if (lines.length < 10) { // Seuil d'erreur arbitraire
