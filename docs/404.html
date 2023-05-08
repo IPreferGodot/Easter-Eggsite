@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Page introuvable</title>
+		
+		<!-- Comme la page 404 peut être ouverte n'importe où, on peut pas utiliser l'astuce des chemins relatifs pour que ça fonction à la fois sur Github Pages et en local -->
+		<link rel="stylesheet" href="/common/style.css" type="text/css" />
+		<link rel="stylesheet" href="/Easter-Eggsite/common/style.css" type="text/css" />
+	</head>
+	<body>
+		<main>
+			<p>
+				Nous sommes désolés, mais la page que vous cherchez est introuvable ou a été déplacée.
+				<br>
+				Pour vous consolez, voici le mot de passe d'un easter egg spécifique à cette page&nbsp;!
+				<br>
+				<br>
+				<span style="font-size: 1.5em;">E%8/@^a+#&</span>
+				<br>
+				<br>
+				
+				<!-- Seul le lien correspondant au chelin local ou GitHub Pages est gardé -->
+				<a id="local-link" href="/">Retour sur la page principale</a>
+				<br> <!-- <br> Empêche le décalage moche au chragement de la page quand le mauvais lien est caché -->
+				<a id="github-link" href="/Easter-Eggsite">Retour sur la page principale</a>
+			</p>
+		</main>
+		<script>
+			fetch("/").then((response) => {
+				if (response.status == 404) {
+					document.getElementById("local-link").style.display = "none";
+				} else {
+					document.getElementById("github-link").style.display = "none";
+				}
+			});
+		</script>
+	</body>
+</html>
