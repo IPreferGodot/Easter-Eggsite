@@ -16,9 +16,10 @@ placeholder_pwd,Naïf,Entrer le mot de passe «mot de passe»,0,4EoL
 re,Re !,Revenir sur la page après l'avoir fermée,0,0EoL
 daily_check,Routine,Revenir tous les jours sur la page pendant une semaine,0,10EoL
 gatcha,Gatcha,Revenir sur la page tous les jours pendant un mois (4 jours manqués autorisés ?),1,10EoL
-fleche,Flèche !,"Presser la flèche gauche sur le clavier plutôt que de cliquer sur le bouton avec une flèche qui permet d'ouvrir la liste de secrets.
-Pour les appareils sans clavier, ajouter la possibilité d'entrer un mot de passe du genre ""<-"", ""←"" ou ""<="" ou encore ""↤"", ""⇐""",0,2EoL
-bourrin,Bourrin,"Spammer la touche flèche vers la gauche. (Ou le mdp pour les appareils sans clavier, voire écrire plusieurs fois la flèche)",0,4EoL
+fleche,Flèche !,"Appuyer sur la flèche gauche, mais sur le clavier.
+(Écran tactile : entrer un mot de passe ressamblant à une flèche vers la gauche)",0,2EoL
+bourrin,Bourrin,"Spammer la flèche gauche du clavier.
+(Écran tactile : entrer en mot de passe une suite de flèches vers la gauche)",0,4EoL
 cgu_button,Au pied de la lettre,"Cliquer sur ""le bouton"" plutôt que de cliquer sur le bouton pour ouvrir les CGU.
 Le bouton ""CGU"" ne fera rien.",0,3EoL
 http_400,HTTP 400,Cliquer-glisser le faux bouton CGU sur le champ de texte du mot de passe,0,8EoL
