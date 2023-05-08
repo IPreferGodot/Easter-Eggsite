@@ -35,3 +35,8 @@ a {
 .link:hover .underline {
     width: 100%;
 }
+
+a img {
+    max-height: 1em;
+    filter: invert(100%);
+}

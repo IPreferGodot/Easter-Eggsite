@@ -231,6 +231,8 @@ class EasterEgg {
 				case "difficulty":
 					value = parseInt(value); break;
 				case "hidden":
+					// DON'T break
+				case "implemented":
 					value = value == "1"; break;
 			}
 			

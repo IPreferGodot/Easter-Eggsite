@@ -39,7 +39,7 @@ footer {
     transform: translateY(-0.3em);
 }
 
-.flex-container a:visited {
+.flex-container a, .flex-container a:visited {
     color: var(--font-color);
 }
 
@@ -54,4 +54,8 @@ footer {
 }
 .copyright a:visited {
     color: inherit;
+}
+
+.masked.masked.masked {
+    color: var(--black);
 }

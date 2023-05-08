@@ -111,6 +111,9 @@ class EasterEggTag extends HTMLElementHelper {
 					newValue = elapsedTime < 1000 * 60 * 60 * 5 ? date.toLocaleTimeString() : date.toLocaleDateString();
 				}
                 break;
+			case "hidden":
+				this.removeAttribute("hidden");
+				this.setAttribute("_hidden", newValue);
 		}
 
 		if (EASTER_EGG_INFOS.includes(attribute)) {
