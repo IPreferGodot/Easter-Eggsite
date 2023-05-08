@@ -32,7 +32,7 @@ class EasterEggsManager {
 			if (part.startsWith('"')) {
 				while (((!part.endsWith('"')) || part.endsWith('""')) && !part.endsWith('"""')) {
 					i++;
-					part += parts[i];
+					part += "," + parts[i];
 				};
 				part = part.slice(1, -1); // On enlève les guillemets
 			};
