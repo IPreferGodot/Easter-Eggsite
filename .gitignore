@@ -2,7 +2,7 @@
 
 drafts/
 *draft*
-*.ico
+# *.ico
 .vscode/
 
 # Temporaire
