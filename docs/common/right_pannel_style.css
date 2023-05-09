@@ -26,7 +26,34 @@
 #filters {
     width: fit-content;
     margin-left: auto;
+    margin-right: 3ch;
     padding-bottom: 0.9em;
+    
+    display: flex;
+    gap: 1.5ch;
+}
+
+/* button is specifyed to increase specificity (.rounded-frame would take over) */
+button.filter {
+    pointer-events: all;
+    padding: 0.8ch;
+    
+    background-color: var(--pure-white);
+    border-color: var(--light-grey);
+    color: var(--grey-dark);
+}
+button.filter.enabled {
+    background-color: var(--base);
+    border-color: var(--base-dark);
+    color: var(--base-dark);
+}
+button.filter.enabled.reverse {
+    background-color: var(--secondary);
+    border-color: var(--secondary-dark);
+    color: var(--secondary-dark);
+}
+.arrow {
+    font-family: Consolas, monaco, monospace;
 }
 
 #list-container {
@@ -95,6 +122,7 @@
 /* Prevent clipping from last easter egg's shadow */
 #easter-eggs-list .scroll-height-observer::after {
     content: "";
+    order: 10000;
 }
 /* Prevent clipping from first easter egg's tooltip */
 #easter-eggs-list .scroll-height-observer::before {
