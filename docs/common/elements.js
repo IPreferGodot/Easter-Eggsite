@@ -129,6 +129,7 @@ class CommonRightPannel extends HTMLElementHelper {
 		super("right_pannel");
 
 		const easterEggListHeightObserver = this.root.querySelector("#easter-eggs-list .scroll-height-observer");
+		this.easterEggsContainer = easterEggListHeightObserver
 		for (const [id, easterEgg] of EASTER_EGGS_MANAGER.easterEggs) {
 			const tag = easterEgg.buildTag();
 
@@ -270,6 +271,8 @@ class CommonRightPannel extends HTMLElementHelper {
 		if (isTouchDevice()) {
 			EASTER_EGGS_MANAGER.get("fleche").onUnlock.bind(() => {mainContainer.classList.add("open");})
 		}
+		
+		this.setupFilters();
 	}
 	
 	checkUnlocked() {
@@ -301,6 +304,144 @@ class CommonRightPannel extends HTMLElementHelper {
 		
 		this.cursor.style.height = (list.clientHeight / list.scrollHeight) * scrollBar.clientHeight + "px";
 		this.cursor.style.top = (list.scrollTop / list.scrollHeight) * scrollBar.clientHeight + "px";
+	}
+	
+	setupFilters() {
+		this.sortDifficulty();
+		this.currentFilter = "difficulty";
+		this.currentFilterOrder = 1;
+		
+		this.root.querySelector("#difficulty-sort").addEventListener(
+			"click",
+			() => {
+				if (this.currentFilter == "difficulty") {
+					this.currentFilterOrder *= -1;
+				} else {
+					this.currentFilter = "difficulty";
+					this.currentFilterOrder = 1;
+				}
+				this.sortDifficulty(this.currentFilterOrder);
+				this.updateFilters();
+			}
+		);
+		
+		this.root.querySelector("#alpha-sort").addEventListener(
+			"click",
+			() => {
+				if (this.currentFilter == "alpha") {
+					this.currentFilterOrder *= -1;
+				} else {
+					this.currentFilter = "alpha";
+					this.currentFilterOrder = 1;
+				}
+				this.sortName(this.currentFilterOrder);
+				this.updateFilters();
+			}
+		);
+		
+		this.root.querySelector("#unlock-sort").addEventListener(
+			"click",
+			() => {
+				if (this.currentFilter == "unlock") {
+					this.currentFilterOrder *= -1;
+				} else {
+					this.currentFilter = "unlock";
+					this.currentFilterOrder = 1;
+				}
+				this.sortUnlocked(this.currentFilterOrder);
+				this.updateFilters();
+			}
+		);
+		
+		this.updateFilters();
+	}
+	
+	/**
+	 * 
+	 * @param {HTMLElement} tag 
+	 * @param {boolean} enabled 
+	 * @param {boolean} reverse 
+	 */
+	setFilterClasses(tag, enabled, reverse) {
+		const classList = tag.classList;
+		if (enabled) {
+			classList.add("enabled");
+			if (reverse) {
+				classList.add("reverse");
+				tag.innerHTML = tag.innerHTML.replace("→", "←");
+			} else {
+				classList.remove("reverse");
+				tag.innerHTML = tag.innerHTML.replace("←", "→");
+			}
+		} else {
+			classList.remove("enabled");
+			classList.remove("reverse");
+			tag.innerHTML = tag.innerHTML.replace("←", "→");
+		}
+	}
+	
+	updateFilters() {
+		this.setFilterClasses(this.root.querySelector("#difficulty-sort"), this.currentFilter == "difficulty", this.currentFilterOrder == -1);
+		this.setFilterClasses(this.root.querySelector("#alpha-sort"), this.currentFilter == "alpha", this.currentFilterOrder == -1);
+		this.setFilterClasses(this.root.querySelector("#unlock-sort"), this.currentFilter == "unlock", this.currentFilterOrder == -1);
+	}
+	
+	/**
+	 * 
+	 * @param {Array<HTMLElement>} newOrder 
+	 */
+	reorder(newOrder) {
+		for (const [i, easterEgg] of newOrder.entries()) {
+			easterEgg.style.order = i;
+		}
+	}
+	
+	sortDifficulty(order = 1) {
+		const newOrder = Array.from(this.easterEggsContainer.children).sort(
+			(a, b) => {
+				if (a.getAttribute("difficulty") > b.getAttribute("difficulty")) {
+					return order;
+				} else if (a.getAttribute("difficulty") < b.getAttribute("difficulty")) {
+					return -order;
+				}
+				return 0;
+			}
+		);
+		
+		this.reorder(newOrder);
+	}
+	
+	sortName(order = 1) {
+		const newOrder = Array.from(this.easterEggsContainer.children).sort(
+			(a, b) => {
+				if (a.getAttribute("name") > b.getAttribute("name")) {
+					return order;
+				} else if (a.getAttribute("name") < b.getAttribute("name")) {
+					return -order;
+				}
+				return 0;
+			}
+		);
+		
+		this.reorder(newOrder);
+	}
+	
+	sortUnlocked(order = 1) {
+		const newOrder = Array.from(this.easterEggsContainer.children).sort(
+			(a, b) => {
+				const aDate = EASTER_EGGS_MANAGER.get(a.getAttribute("id")).unlockedDate;
+				const bDate = EASTER_EGGS_MANAGER.get(b.getAttribute("id")).unlockedDate;
+				
+				if (aDate > bDate || (aDate && !bDate)) {
+					return order;
+				} else if (aDate < bDate || (!aDate && bDate)) {
+					return -order;
+				}
+				return 0;
+			}
+		);
+		
+		this.reorder(newOrder);
 	}
 }
 

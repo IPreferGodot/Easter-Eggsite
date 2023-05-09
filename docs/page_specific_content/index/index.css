@@ -53,6 +53,7 @@
     font-size: 0.6em;
     width: fit-content;
     margin: 1rem auto;
+    cursor: pointer;
 }
 #forgot-pwd:hover {
     text-decoration: underline;
