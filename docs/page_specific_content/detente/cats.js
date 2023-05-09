@@ -177,23 +177,25 @@ function summon() {
     }
     
     if (Math.random() < 0.05) {
-        let positionPercent = 10
+        let positionPercent = 5
         const tail = buildCat("./assets/detente/cats/long_start.jpg", true);
         tail.style.left = positionPercent + "%"
+        tail.style.maxWidth = "5%";
         catContainer.appendChild(tail)
         
         const length = Math.ceil(Math.random() * 3 + 3)
         for (let i=0; i<length; i++) {
-            positionPercent += 10
+            positionPercent += 5
             const part = buildCat("./assets/detente/cats/long_middle.jpg", true)
             part.style.left = positionPercent + "%"
+            part.style.maxWidth = "5%";
             catContainer.appendChild(part)
         }
         
-        positionPercent += 10
+        positionPercent += 5
         const head = buildCat("./assets/detente/cats/long_end.jpg", true);
         head.style.left = positionPercent + "%"
-        head.style.maxWidth = 10 * 318/118 + "%"
+        head.style.maxWidth = 5 * 318/118 + "%"
         catContainer.appendChild(head)
     } else {
         catContainer.appendChild(buildCat(basicCats[Math.floor(Math.random() * basicCats.length)]));
