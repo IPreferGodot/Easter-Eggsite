@@ -1,4 +1,5 @@
 import { EASTER_EGGS_MANAGER } from "../common/easter_eggs.js";
+import { SAVE_MANAGER } from "../common/save_system.js";
 import { clamp, stopDefault, isTouchDevice, EASTER_EGG_INFOS } from "./utility.js";
 
 const HTML_TO_LOAD = [
@@ -7,6 +8,7 @@ const HTML_TO_LOAD = [
     "right_pannel",
     "easter_egg",
     "popup_container",
+	"cookies",
 ];
 
 const INNERS = await HTML_TO_LOAD.reduce(
@@ -39,6 +41,78 @@ class HTMLElementHelper extends HTMLElement {
 				this.root.adoptedStyleSheets = sheets;
 			},
 			3000 // Enough for slow 3G (tested with devtool's throttling)
+		);
+	}
+}
+
+class CommonCookies extends HTMLElementHelper {
+	constructor() {
+		super("cookies");
+		
+		const saveCookies = SAVE_MANAGER.create("accepted-cookies", "false")
+		
+	
+		const popup = document.querySelector('.popup');
+		const overlay = document.querySelector('.overlay');
+		if (saveCookies.value == false) {
+			popup.style.display = 'block';
+			overlay.style.display = 'block';
+		}
+
+		function showConfirmDialog(action) {
+			if (confirm('Tes sûre de vouloir ' + action + ' les cookies?')) {
+				if (action === 'accept') {
+					saveCookies.value = "true"
+					// setCookie('cookie_consent', 'true', 30);
+					
+				} else if (action === 'reject') {
+					saveCookies.value = "false"
+					// setCookie('cookie_consent', 'false', 30);
+				}
+				closePopup();
+			}
+		}
+		function closePopup() {
+			var popup = document.querySelector('.popup');
+			var overlay = document.querySelector('.overlay');
+			popup.style.display = 'none';
+			overlay.style.display = 'none';
+		}
+			
+	
+		// Inutile puisqu'on utilise LocalStorage
+		// function setCookie(name, value, days) {
+		// 	var expires = '';
+		// 	if (days) {
+		// 		var date = new Date();
+		// 		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		// 		expires = '; expires=' + date.toUTCString();
+		// 	}
+		// 	document.cookie = name + '=' + value + expires + '; path=/';
+		// }
+
+		// function getCookie(name) {
+        //     var cookies = document.cookie.split('; ');
+        //     for (var i = 0; i < cookies.length; i++) {
+        //         var parts = cookies[i].split('=');
+        //         if (decodeURIComponent(parts[0]) === name) {
+        //             return decodeURIComponent(parts[1]);
+        //         }
+        //     }
+        //     return null;
+		// }
+		
+		this.root.querySelector("#accept").addEventListener(
+			"click",
+			() => {
+				showConfirmDialog("accept");
+			}
+		);
+		this.root.querySelector("#reject").addEventListener(
+			"click",
+			() => {
+				showConfirmDialog("reject");
+			}
 		);
 	}
 }
@@ -481,3 +555,4 @@ customElements.define("common-topbar", CommonTopbar);
 customElements.define("common-right-pannel", CommonRightPannel);
 customElements.define("easter-egg", EasterEggTag);
 customElements.define("common-popup-container", CommonPopupContainer);
+customElements.define("common-cookies", CommonCookies);

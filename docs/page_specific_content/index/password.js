@@ -8,7 +8,8 @@ const BLINK_DURATION = 150;
 const STRICT_PASSWORDS = {
     // password: easter_egg_id,
     // "un mot de passe": "exempleA",
-    "E%8/@^a+#&":"404"
+    "E%8/@^a+#&":"404",
+    "fàg#mKt°R4$zP":"page_title"
 };
 
 
