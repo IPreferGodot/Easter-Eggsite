@@ -1,5 +1,12 @@
 const EASTER_EGG_INFOS = ["name", "difficulty", "description", "unlocked", "hidden", "implemented"];
 
+/**
+ * 
+ * @param {number} num 
+ * @param {number} min 
+ * @param {number} max 
+ * @returns 
+ */
 function clamp(num, min, max) {
     return Math.max(Math.min(num, max), min);
 }

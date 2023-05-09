@@ -60,6 +60,10 @@ class SaveManager {
 		this.loadSaves();
 	}
 
+	/**
+	 * 
+	 * @param {string} key 
+	 */
 	_addKey(key) {
 		if (key != "keys" && !(key in this.keys)) {
 			this.keys.push(key);
@@ -107,10 +111,18 @@ class SaveManager {
 		return save;
 	}
 	
+	/**
+	 * 
+	 * @param {string} key 
+	 * @param {string} value 
+	 */
 	set(key, value) {
 		this.get(key).value = value
 	}
 	
+	/**
+	 * @param {boolean} verbose
+	 */
 	loadSaves(verbose = false) {
 		if (verbose) {console.log("Loading saves :");}
 		const keys = this.keysSave.value;
