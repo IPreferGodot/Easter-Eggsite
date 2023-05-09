@@ -1,4 +1,5 @@
 import { EASTER_EGGS_MANAGER } from "../common/easter_eggs.js";
+import { SAVE_MANAGER } from "../common/save_system.js";
 import { clamp, stopDefault, isTouchDevice, EASTER_EGG_INFOS } from "./utility.js";
 
 const HTML_TO_LOAD = [
@@ -47,21 +48,26 @@ class HTMLElementHelper extends HTMLElement {
 class CommonCookies extends HTMLElementHelper {
 	constructor() {
 		super("cookies");
-		window.onload = function() {
-			var popup = document.querySelector('.popup');
-			var overlay = document.querySelector('.overlay');
-			if (!getCookie('cookie_consent')) {
-				popup.style.display = 'block';
-				overlay.style.display = 'block';
-			}
+		
+		const saveCookies = SAVE_MANAGER.create("accepted-cookies", "false")
+		
+	
+		const popup = document.querySelector('.popup');
+		const overlay = document.querySelector('.overlay');
+		if (saveCookies.value == false) {
+			popup.style.display = 'block';
+			overlay.style.display = 'block';
 		}
 
 		function showConfirmDialog(action) {
 			if (confirm('Tes sûre de vouloir ' + action + ' les cookies?')) {
 				if (action === 'accept') {
-					setCookie('cookie_consent', 'true', 30);
+					saveCookies.value = "true"
+					// setCookie('cookie_consent', 'true', 30);
+					
 				} else if (action === 'reject') {
-					setCookie('cookie_consent', 'false', 30);
+					saveCookies.value = "false"
+					// setCookie('cookie_consent', 'false', 30);
 				}
 				closePopup();
 			}
@@ -72,28 +78,42 @@ class CommonCookies extends HTMLElementHelper {
 			popup.style.display = 'none';
 			overlay.style.display = 'none';
 		}
+			
+	
+		// Inutile puisqu'on utilise LocalStorage
+		// function setCookie(name, value, days) {
+		// 	var expires = '';
+		// 	if (days) {
+		// 		var date = new Date();
+		// 		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		// 		expires = '; expires=' + date.toUTCString();
+		// 	}
+		// 	document.cookie = name + '=' + value + expires + '; path=/';
+		// }
 
-		function setCookie(name, value, days) {
-			var expires = '';
-			if (days) {
-				var date = new Date();
-				date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-				expires = '; expires=' + date.toUTCString();
+		// function getCookie(name) {
+        //     var cookies = document.cookie.split('; ');
+        //     for (var i = 0; i < cookies.length; i++) {
+        //         var parts = cookies[i].split('=');
+        //         if (decodeURIComponent(parts[0]) === name) {
+        //             return decodeURIComponent(parts[1]);
+        //         }
+        //     }
+        //     return null;
+		// }
+		
+		this.root.querySelector("#accept").addEventListener(
+			"click",
+			() => {
+				showConfirmDialog("accept");
 			}
-			document.cookie = name + '=' + value + expires + '; path=/';
-		}
-
-		function getCookie(name) {
-            var cookies = document.cookie.split('; ');
-            for (var i = 0; i < cookies.length; i++) {
-                var parts = cookies[i].split('=');
-                if (decodeURIComponent(parts[0]) === name) {
-                    return decodeURIComponent(parts[1]);
-                }
-            }
-            return null;
-}
-		this.root.querySelector("#jesaispasoulemettre")
+		);
+		this.root.querySelector("#reject").addEventListener(
+			"click",
+			() => {
+				showConfirmDialog("reject");
+			}
+		);
 	}
 }
 

@@ -2,9 +2,9 @@
 
 .popup {
     font-family: 'Comfortaa', sans-serif;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: fixed;
+    top: 100%;
+    bottom: auto;
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
@@ -15,30 +15,12 @@
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    top: 100%;
+    bottom: auto;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9998;
     display: none;
-}
-
-/* Style for the cookie consent popup */
-#cookie-consent-popup {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-}
-
-/* Style for the blur effect */
-body.cookie-consent-active {
-  filter: blur(5px);
-  pointer-events: none;
 }
