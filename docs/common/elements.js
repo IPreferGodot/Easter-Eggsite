@@ -127,7 +127,9 @@ class EasterEggTag extends HTMLElementHelper {
 class CommonRightPannel extends HTMLElementHelper {
 	constructor() {
 		super("right_pannel");
-
+		
+		const mainContainer = this.root.querySelector("#main-container");
+		
 		const easterEggListHeightObserver = this.root.querySelector("#easter-eggs-list .scroll-height-observer");
 		this.easterEggsContainer = easterEggListHeightObserver
 		for (const [id, easterEgg] of EASTER_EGGS_MANAGER.easterEggs) {
@@ -169,7 +171,14 @@ class CommonRightPannel extends HTMLElementHelper {
 				// window.addEventListener('selectstart', stopDefault);
 			}
 		);
-		window.addEventListener('selectstart', stopDefault);
+		window.addEventListener(
+			'selectstart',
+			(e) => {
+				if (mainContainer.classList.contains("open")) {
+					stopDefault(e);
+				}
+			}
+		);
 
 		window.addEventListener("mouseup", () => {
 			window.removeEventListener("mousemove", onMouseMove);
@@ -212,7 +221,6 @@ class CommonRightPannel extends HTMLElementHelper {
 		
 		// Open button
 		this.checkUnlocked();
-		const mainContainer = this.root.querySelector("#main-container")
 		
 		const bourrinArray = [];
 		let bourrinAnimPlaying = false;
