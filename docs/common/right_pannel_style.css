@@ -156,6 +156,8 @@ button.filter.enabled.reverse {
     margin-right: 2ch;
     
     filter: var(--glitch-shadow);
+    
+    cursor: pointer;
 }
 
 #open-pannel img {
