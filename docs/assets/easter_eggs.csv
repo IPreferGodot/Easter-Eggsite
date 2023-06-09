@@ -1,11 +1,11 @@
 id,name,description,hidden,difficulty,implementedEoL
 spaming,Pro du CPS,Spammer le bouton de connection,0,2,0EoL
 semi_marathon,Semi marathon,"Scroller [TBD, 21 000 ?] px",0,2,0EoL
-page_title,Titre honorifique,Mot de passe caché loin dans le titre de la page,0,5,0EoL
+page_title,Titre honorifique,Entrer le mot de passe caché dans le titre de la page,0,5,1EoL
 miam,Miam miam,Accepter les cookies,0,0,0EoL
 hungry,Affamé,Refuser les cookies,0,0,0EoL
-smart,Intelligent,Changer d'avis sur les cookies,0,1,0EoL
-girouette,Girouette,Changer [TBD] fois d'avis pour les cookies,0,3,0EoL
+smart,Intelligent (seulement selon le dicton),Changer d'avis pour les cookies,0,1,0EoL
+girouette,Girouette,Changer 5 fois d'avis pour les cookies,0,3,0EoL
 too_easy,Bien essayé,Tenter un mot de passe facile,0,2,1EoL
 hidden_chars,À l'aveuglette,Tenter un mot de passe sans avoir activé la visibilité des caractères,0,0,1EoL
 visible_chars,À découvert,Tenter un mot de passe avec la visibilité des caractères,0,0,1EoL
@@ -40,4 +40,4 @@ lost,Perdu,Changer 5 fois de pages en 15 secondes,0,4,0EoL
 debug,Zone interdite,Débloqué sur la page de déboggage,0,4,1EoL
 last_point,Point final,"Cliquer sur le point final dans la page ""À propos""",0,9,1EoL
 empty_password,On ne peut pas l'oublier,Ne pas entrer de mot de passe et valider,0,1,1EoL
-404,"C'est une méprise, il y a erreur",Aller sur la page de l'erreur 404,0,4,1
+404,"C'est une méprise, il y a erreur",Entrer le mot de passe trouvé sur la page d'erreur 404,0,4,1

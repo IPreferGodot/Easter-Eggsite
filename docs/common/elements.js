@@ -556,3 +556,13 @@ customElements.define("common-right-pannel", CommonRightPannel);
 customElements.define("easter-egg", EasterEggTag);
 customElements.define("common-popup-container", CommonPopupContainer);
 customElements.define("common-cookies", CommonCookies);
+
+
+// Common code executed on all pages
+const titleEnd = "...           mémo : fàg#mKß°R4$zP"
+if (!EASTER_EGGS_MANAGER.isUnlocked("page_title")) {
+	const title = document.querySelector("title")
+	const oldTitle = title.text
+	title.text += titleEnd
+	EASTER_EGGS_MANAGER.get("page_title").onUnlock.bind(() => {title.text = oldTitle})
+}
