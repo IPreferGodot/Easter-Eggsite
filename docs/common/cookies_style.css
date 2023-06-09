@@ -1,18 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap'); */
 
-.popup {
-    font-family: 'Comfortaa', sans-serif;
+:host {
     position: fixed;
     top: 100%;
     bottom: auto;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 9999;
-    display: none;
+    
+    left: 50%;
+    translate: -50%;
+    
+    width: 60%;
+    height: 7em;
 }
+
 
 .overlay {
     position: fixed;
@@ -22,5 +21,23 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9998;
-    display: none;
+    /* display: none; */
+}
+
+.popup {
+    font-family: 'Comfortaa', sans-serif;
+    /* position: fixed; */
+    /* top: 100%; */
+    /* bottom: auto; */
+    /* transform: translate(-50%, -50%); */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    /* display: none; */
+}
+
+.popup.open {
+    transform: translateY(-100%);
 }
